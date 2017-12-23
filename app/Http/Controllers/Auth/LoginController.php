@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\Data;
 use App\Http\Controllers\Controller;
 use function flash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -73,7 +74,12 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
 
+            // show welcome message
             flash('Welcome ' . user()->name . '!', 'success');
+
+            // refresh data on login
+            Data::getUserMonthlyHours(true);
+            Data::getUserProjectlyHours(true);
 
             return $this->sendLoginResponse($request);
         }
