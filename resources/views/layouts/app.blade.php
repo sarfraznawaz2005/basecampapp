@@ -54,7 +54,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{route('timeentry')}}">Time Entry</a></li>
+                    <li class="{{active(['timeentry'])}}"><a href="{{route('timeentry')}}">Time Entry</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -72,7 +72,7 @@
 
                             <ul class="dropdown-menu" role="menu">
 
-                                <li><a href="{{route('settings')}}">Settings</a></li>
+                                <li class="{{active(['settings'])}}"><a href="{{route('settings')}}">Settings</a></li>
 
                                 <li>
                                     <a href="{{ route('logout') }}"
