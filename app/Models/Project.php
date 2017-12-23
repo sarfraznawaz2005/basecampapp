@@ -14,10 +14,22 @@ class Project extends Model
     ];
 
     /**
-     * Get's user of the project from relationship
+     * Gets user of the project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Gets all todos of the project.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
     }
 }

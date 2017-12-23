@@ -34,15 +34,52 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get's user's projects from relationship
+     * Get's user's projects in which he has time entries
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function projects()
     {
         return $this->hasMany(Project::class)->where('hours', '>', 0);
     }
 
+    /**
+     * Gets all projects of user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function projectsAll()
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * Gets all todos of user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
+
+    /**
+     * Gets all posted todos of user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function postedTodos()
+    {
+        return $this->hasMany(Todo::class)->where('status', 'posted');
+    }
+
+    /**
+     * Gets all pending todos of user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pendingTodos()
+    {
+        return $this->hasMany(Todo::class)->where('status', 'pending');
     }
 }
