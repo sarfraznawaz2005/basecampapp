@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->integer('user_id')->index();
             $table->string('project_id');
             $table->string('project_name');
-            $table->string('hours');
+            $table->string('hours')->nullable()->default(0);
             $table->timestamps();
         });
     }

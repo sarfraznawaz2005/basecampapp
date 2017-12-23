@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Facades\Data;
+use App\Models\Project;
 use function redirect;
+use function set_time_limit;
 
 class HomeController extends Controller
 {
@@ -39,6 +41,25 @@ class HomeController extends Controller
 
     public function refresh()
     {
+        set_time_limit(0);
+
+        // add all projects first
+        $projects = getAllProjects();
+
+        foreach ($projects as $projectId => $name) {
+
+            $projectInstance = Project::firstOrNew([
+                'user_id' => user()->id,
+                'project_id' => $projectId,
+            ]);
+
+            $projectInstance->user_id = user()->id;
+            $projectInstance->project_id = $projectId;
+            $projectInstance->project_name = $name;
+
+            $projectInstance->save();
+        }
+
         Data::getUserMonthlyHours(true);
 
         Data::getUserProjectlyHours(true);

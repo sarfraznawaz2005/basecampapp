@@ -127,8 +127,14 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(hideLoader);
+
+        function showLoader() {
+            $('.loading-indicator-with-overlay').show();
+        }
+
+        function hideLoader() {
             $('.loading-indicator-with-overlay').hide();
-        });
+        }
     </script>
 @endpush

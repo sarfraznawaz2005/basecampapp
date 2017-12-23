@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Facades\Data;
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use function flash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -74,12 +75,7 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
 
-            // show welcome message
-            flash('Welcome ' . user()->name . '!', 'success');
-
-            // refresh data on login
-            Data::getUserMonthlyHours(true);
-            Data::getUserProjectlyHours(true);
+            $this->setup();
 
             return $this->sendLoginResponse($request);
         }
@@ -90,5 +86,36 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function setup()
+    {
+        // show welcome message
+        flash('Welcome ' . user()->name . '!', 'success');
+
+        $this->addUserProjects();
+
+        // refresh data on login
+        Data::getUserMonthlyHours(true);
+        Data::getUserProjectlyHours(true);
+    }
+
+    protected function addUserProjects()
+    {
+        $projects = getAllProjects();
+
+        foreach ($projects as $projectId => $name) {
+
+            $projectInstance = Project::firstOrNew([
+                'user_id' => user()->id,
+                'project_id' => $projectId,
+            ]);
+
+            $projectInstance->user_id = user()->id;
+            $projectInstance->project_id = $projectId;
+            $projectInstance->project_name = $name;
+
+            $projectInstance->save();
+        }
     }
 }

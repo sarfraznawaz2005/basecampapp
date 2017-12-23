@@ -141,7 +141,66 @@ function getProjectName($id)
     return $data['name'];
 }
 
-function getTodoListName($id)
+function getAllProjects()
 {
+    $finalData = [];
 
+    $data = getInfo("projects");
+
+    if (isset($data['project'])) {
+        foreach ($data['project'] as $xml) {
+            $array = (array)$xml;
+
+            if (isset($array['id'])) {
+                $finalData[$array['id']] = ucfirst($array['name']);
+            }
+        }
+    }
+
+    asort($finalData);
+
+    return $finalData;
 }
+
+function getProjectTodoLists($projectId)
+{
+    $finalData = [];
+
+    $data = getInfo("projects/$projectId/todo_lists");
+
+    if (isset($data['todo-list'])) {
+        foreach ($data['todo-list'] as $xml) {
+            $array = (array)$xml;
+
+            if (isset($array['id'])) {
+                $finalData[$array['id']] = ucfirst($array['name']);
+            }
+        }
+    }
+
+    asort($finalData);
+
+    return $finalData;
+}
+
+function getTodoListTodos($todolistId)
+{
+    $finalData = [];
+
+    $data = getInfo("todo_lists/$todolistId/todo_items");
+
+    if (isset($data['todo-item'])) {
+        foreach ($data['todo-item'] as $xml) {
+            $array = (array)$xml;
+
+            if (isset($array['id'])) {
+                $finalData[$array['id']] = ucfirst($array['content']);
+            }
+        }
+    }
+
+    asort($finalData);
+
+    return $finalData;
+}
+

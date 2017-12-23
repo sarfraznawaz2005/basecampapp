@@ -38,6 +38,11 @@ class User extends Authenticatable
      */
     public function projects()
     {
+        return $this->hasMany(Project::class)->where('hours', '>', 0);
+    }
+
+    public function projectsAll()
+    {
         return $this->hasMany(Project::class);
     }
 }

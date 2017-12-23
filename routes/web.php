@@ -16,4 +16,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // time entry
     Route::get('timeentry', 'TimeEntryController@index')->name('timeentry');
+
+    // ajax
+    Route::get('todolists/{projectId}', 'TimeEntryController@todoLists');
+    Route::get('todos/{todolistId}', 'TimeEntryController@todos');
 });
