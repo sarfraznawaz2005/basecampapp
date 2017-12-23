@@ -141,6 +141,20 @@ function getProjectName($id)
     return $data['name'];
 }
 
+function getTodoListName($id)
+{
+    $data = getInfo("todo_lists/$id");
+
+    return $data['name'];
+}
+
+function getTodoName($id)
+{
+    $data = getInfo("todo_items/$id");
+
+    return $data['name'];
+}
+
 function getAllProjects()
 {
     $finalData = [];
