@@ -15,7 +15,7 @@ class UserController extends Controller
 
         $form = $formBuilder->create(SettingsForm::class, [
             'method' => 'POST',
-            'url' => route('user.settings')
+            'url' => route('settings')
         ]);
 
         return view('pages.settings.settings', compact('form'));
