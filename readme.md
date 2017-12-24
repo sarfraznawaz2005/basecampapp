@@ -1,6 +1,6 @@
 ## BasecampApp (Work in Progress)
 
-The BasecampApp is an application to log time entries for your basecamp projects quickly and easily.
+The BasecampApp is an application to log time entries for your basecamp-classic projects quickly and easily.
 
 ## Screenshot ##
 

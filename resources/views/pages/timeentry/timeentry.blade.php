@@ -173,7 +173,8 @@
                 $todoDropdown.empty();
                 $todoListDropdown.val(null).trigger("change");
                 $todoDropdown.val(null).trigger("change");
-
+                $todoListDropdown.append('<option value="">Select</option>');
+                $todoDropdown.append('<option value="">Select</option>');
                 $todoListDropdown.attr('disabled', true);
                 $todoDropdown.attr('disabled', true);
 
@@ -205,6 +206,7 @@
 
                 $todoDropdown.empty();
                 $todoDropdown.val(null).trigger("change");
+                $todoDropdown.append('<option value="">Select</option>');
                 $todoDropdown.attr('disabled', true);
 
                 $.get('/todos/' + this.value, function (response) {

@@ -4,6 +4,10 @@
  * User: Sarfraz
  * Date: 12/23/2017
  * Time: 1:54 PM
+ *
+ * Some functions to get data from basecamp classic.
+ * Docs: https://github.com/basecamp/basecamp-classic-api
+ *
  */
 
 /**
@@ -35,6 +39,8 @@ function getInfo($action, $queryString = '')
 
     @$response = simplexml_load_string($response);
     $response = (array)$response;
+
+    //$array = json_decode(json_encode($response), 1);
 
     if (isset($response['head']['title'])) {
         return '';
@@ -138,14 +144,14 @@ function getProjectName($id)
 {
     $data = getInfo("projects/$id");
 
-    return $data['name'];
+    return isset($data['name']) ? $data['name'] : '';
 }
 
 function getTodoListName($id)
 {
     $data = getInfo("todo_lists/$id");
 
-    return $data['name'];
+    return isset($data['name']) ? $data['name'] : '';
 }
 
 function getTodoName($id)
@@ -162,13 +168,24 @@ function getAllProjects()
     $data = getInfo("projects");
 
     if (isset($data['project'])) {
-        foreach ($data['project'] as $xml) {
-            $array = (array)$xml;
 
-            if (isset($array['id'])) {
-                $finalData[$array['id']] = ucfirst($array['name']);
+        $project = (array)$data['project'];
+
+        if (isset($project[0])) {
+            foreach ($data['project'] as $xml) {
+                $array = (array)$xml;
+
+                if (isset($array['id']) && isset($array['company'])) {
+                    $finalData[$array['id']] = ucfirst($array['name']);
+                }
+            }
+        } else {
+            // in case of single entry/project
+            if (isset($project['id']) && isset($project['company'])) {
+                $finalData[$project['id']] = ucfirst($project['name']);
             }
         }
+
     }
 
     asort($finalData);

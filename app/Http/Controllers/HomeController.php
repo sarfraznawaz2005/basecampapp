@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Facades\Data;
 use App\Models\Project;
+use function collect;
 use function redirect;
 use function set_time_limit;
 
@@ -33,6 +34,7 @@ class HomeController extends Controller
 
         // projectly hours
         $projects = Data::getUserProjectlyHours();
+        $projects = collect($projects)->sortByDesc('hours');
 
         return view('pages.dashboard.dashboard',
             compact('totalHours', 'projects')
