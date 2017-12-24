@@ -10,7 +10,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="pull-left">
-                <strong>Project Wise Hours Distribution</strong>
+                <strong>Project Wise Distribution</strong>
             </div>
             <div class="pull-right">
                 <a href="{{route('refresh_data')}}" id="btn_refresh_data" class="btn btn-success btn-sm">

@@ -9,6 +9,7 @@
 namespace App\Facades;
 
 use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 use Setting;
 
 class Data
@@ -35,6 +36,9 @@ class Data
 
         if (!$projects->count() || $forceRefresh) {
             $projects = getTotalWorkedHoursThisMonthAllProjects();
+
+            // reset hours
+            DB::statement("update projects set hours = '0' where user_id = " . user()->id);
 
             foreach ($projects as $project) {
 
