@@ -24,4 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     // ajax
     Route::get('todolists/{projectId}', 'TimeEntryController@todoLists');
     Route::get('todos/{todolistId}', 'TimeEntryController@todos');
+
+    // datatables
+    Route::get('datatable_posted_todos', 'TimeEntryController@postedTodos')->name('datatable_posted_todos');
 });

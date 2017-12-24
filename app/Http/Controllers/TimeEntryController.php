@@ -7,6 +7,7 @@ use App\DataTables\PendingTodosDataTable;
 use App\Models\Todo;
 use function redirect;
 use function request;
+use Yajra\Datatables\Facades\Datatables;
 
 class TimeEntryController extends Controller
 {
@@ -105,5 +106,27 @@ class TimeEntryController extends Controller
     public function todos($todolistId)
     {
         return json_encode(getTodoListTodos($todolistId));
+    }
+
+    public function postedTodos()
+    {
+        $query = user()->postedTodos;
+
+        if (!$query->count()) {
+            return noDataTableResponse();
+        }
+
+        return Datatables::of($query)
+            ->editColumn('project', function ($object) {
+                if ($object->project) {
+                    return $object->project->project_name;
+                }
+
+                return 'N/A';
+            })
+            ->editColumn('total', function ($object) {
+                return '10';
+            })
+            ->make(true);
     }
 }

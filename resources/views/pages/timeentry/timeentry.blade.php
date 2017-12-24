@@ -7,7 +7,18 @@
     </a>
     <hr>
 
-    {!! $dataTable->table()  !!}
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#pending" role="tab" data-toggle="tab">Pending Todos</a></li>
+        <li><a href="#posted" role="tab" data-toggle="tab">Posted Todos</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="active tab-pane fade in" id="pending">
+            @widget('App.Widgets.PendingTodosWidget')
+        </div>
+        <div class="tab-pane fade" id="posted">
+            @widget('App.Widgets.PostedTodosWidget')
+        </div>
+    </div>
 
     <div class="modal fade" id="modal-entry">
         <div class="modal-dialog">
@@ -158,10 +169,6 @@
     </div>
 
 @endsection
-
-@push('scripts')
-    {!! $dataTable->scripts() !!}
-@endpush
 
 @push('scripts')
     <script>
