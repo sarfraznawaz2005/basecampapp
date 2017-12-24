@@ -189,6 +189,7 @@ return [
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Eusonlito\LaravelPacker\PackerServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\Datatables\ButtonsServiceProvider::class,
 
     ],
 

@@ -9,7 +9,7 @@
 
     <div class="panel panel-info">
         <div class="panel-heading">
-            <div class="pull-left">
+            <div class="pull-left" style="padding-top: 5px !important;">
                 <strong>Project Wise Distribution</strong>
             </div>
             <div class="pull-right">
@@ -31,12 +31,15 @@
 
                 @foreach($projects as $project)
                     <tr>
-                        <td><a href="javascript:void(0)">{{$project['project_name']}}</a></td>
+                        <td>
+                            <a href="{{route('project_hours', $project['project_id'])}}">{{$project['project_name']}}</a>
+                        </td>
                         <td><span class="label label-success">{{$project['hours']}}</span></td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+            <br><br>
 
             <div id="piechart"></div>
 

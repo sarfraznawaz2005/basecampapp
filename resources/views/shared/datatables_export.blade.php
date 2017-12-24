@@ -1,4 +1,3 @@
-{{--
 @push('styles')
 <link href="/js/plugins/datatables/buttons/css/buttons.dataTables.min.css" rel="stylesheet"/>
 @endpush
@@ -12,7 +11,7 @@
 '/storage/cache/js/')
 !!}
 @endpush
---}}
+
 
 @push('scripts')
 {!! $dataTable->scripts() !!}

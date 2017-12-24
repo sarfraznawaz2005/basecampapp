@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use function addRequestVar;
 use App\Models\Todo;
-use function json_decode;
 use function redirect;
 use function request;
-use function strtotime;
 
 class TimeEntryController extends Controller
 {

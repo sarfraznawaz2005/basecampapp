@@ -14,6 +14,9 @@ Route::group(['middleware' => 'auth'], function () {
     // refresh data
     Route::get('refresh_data', 'HomeController@refresh')->name('refresh_data');
 
+    // project
+    Route::get('project/{projectId}', 'ProjectController@show')->name('project_hours');
+
     // time entry
     Route::get('timeentry', 'TimeEntryController@index')->name('timeentry');
     Route::post('timeentry', 'TimeEntryController@store');
