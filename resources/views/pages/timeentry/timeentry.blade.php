@@ -7,6 +7,8 @@
     </a>
     <hr>
 
+    {!! $dataTable->table()  !!}
+
     <div class="modal fade" id="modal-entry">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -156,6 +158,10 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    {!! $dataTable->scripts() !!}
+@endpush
 
 @push('scripts')
     <script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use function addRequestVar;
+use App\DataTables\PendingTodosDataTable;
 use App\Models\Todo;
 use function redirect;
 use function request;
@@ -12,9 +13,10 @@ class TimeEntryController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @param PendingTodosDataTable $dataTable
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index()
+    public function index(PendingTodosDataTable $dataTable)
     {
         title('Time Entry');
 
@@ -32,7 +34,7 @@ class TimeEntryController extends Controller
             $todos = json_decode($this->todos(old('todolist_id')), true);
         }
 
-        return view('pages.timeentry.timeentry',
+        return $dataTable->render('pages.timeentry.timeentry',
             compact('projects', 'todoLists', 'todos')
         );
     }

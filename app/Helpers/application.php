@@ -50,7 +50,7 @@ function out($message, $log = true)
 /**
  * Returns instance of logged in user.
  *
- * @return \Illuminate\Contracts\Auth\Authenticatable|\App\User\Models\User
+ * @return \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User
  */
 function user()
 {

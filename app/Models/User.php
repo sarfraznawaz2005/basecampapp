@@ -60,7 +60,7 @@ class User extends Authenticatable
      */
     public function todos()
     {
-        return $this->hasMany(Todo::class);
+        return $this->hasMany(Todo::class)->with('project');
     }
 
     /**
@@ -70,7 +70,7 @@ class User extends Authenticatable
      */
     public function postedTodos()
     {
-        return $this->hasMany(Todo::class)->where('status', 'posted');
+        return $this->hasMany(Todo::class)->with('project')->where('status', 'posted');
     }
 
     /**
@@ -80,6 +80,6 @@ class User extends Authenticatable
      */
     public function pendingTodos()
     {
-        return $this->hasMany(Todo::class)->where('status', 'pending');
+        return $this->hasMany(Todo::class)->with('project')->where('status', 'pending');
     }
 }
