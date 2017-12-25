@@ -110,15 +110,15 @@
 
         // send
         $.post('/post_todos', {data: data}, function (response) {
-            $this.attr('disabled', false);
-            $this.html(btnText);
-
             if (response === 'ok') {
                 window.location.reload()
             }
             else {
                 showAlert('Unable to post :(', 'error');
             }
+
+            $this.attr('disabled', false);
+            $this.html(btnText);
         });
 
     });
