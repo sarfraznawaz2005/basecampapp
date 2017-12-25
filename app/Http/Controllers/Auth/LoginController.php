@@ -98,29 +98,10 @@ class LoginController extends Controller
         // show welcome message
         flash('Welcome ' . user()->name . '!', 'success');
 
-        $this->addUserProjects();
-
-        // refresh data on login
+        // refresh data on login - order is important
+        Data::addUserProjects();
         Data::getUserMonthlyHours(true);
         Data::getUserProjectlyHours(true);
     }
 
-    protected function addUserProjects()
-    {
-        $projects = getAllProjects();
-
-        foreach ($projects as $projectId => $name) {
-
-            $projectInstance = Project::firstOrNew([
-                'user_id' => user()->id,
-                'project_id' => $projectId,
-            ]);
-
-            $projectInstance->user_id = user()->id;
-            $projectInstance->project_id = $projectId;
-            $projectInstance->project_name = $name;
-
-            $projectInstance->save();
-        }
-    }
 }
