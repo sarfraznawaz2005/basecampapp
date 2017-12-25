@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Facades\Data;
 use App\Models\Project;
 use function collect;
+use function config;
 use function redirect;
 use function set_time_limit;
 
@@ -27,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        title('Dashboard');
+        title(config('app.name'));
 
         // total monthly hours so far
         $totalHours = Data::getUserMonthlyHours();

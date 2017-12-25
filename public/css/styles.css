@@ -5,3 +5,8 @@
 .bigger {
     font-size: 125%;
 }
+
+.navbar-brand > img {
+    display: inline;
+    margin-bottom: 4px;
+}
