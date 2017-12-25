@@ -95,9 +95,6 @@ class LoginController extends Controller
             session(['ouid' => user()->id]);
         }
 
-        // show welcome message
-        flash('Welcome ' . user()->name . '!', 'success');
-
         // refresh data on login - order is important
         if (Data::checkConnection(user()->basecamp_api_user_id)) {
             Data::addUserProjects();
