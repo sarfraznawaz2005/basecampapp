@@ -7,6 +7,7 @@
         <th>Time Start</th>
         <th>Time End</th>
         <th>Total</th>
+        <th>Action</th>
     </tr>
     </thead>
 </table>
@@ -32,7 +33,8 @@
                         {data: 'description', title: 'Description'},
                         {data: 'time_start', title: 'Time Start'},
                         {data: 'time_end', title: 'Time End'},
-                        {data: 'total', title: 'Total'}
+                        {data: 'total', title: 'Total'},
+                        {data: 'action', title: 'Action'}
                     ]
                 });
             }

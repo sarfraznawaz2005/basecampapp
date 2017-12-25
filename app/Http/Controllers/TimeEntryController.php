@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use function addRequestVar;
 use App\DataTables\PendingTodosDataTable;
 use App\Models\Todo;
-use function redirect;
-use function request;
 use Yajra\Datatables\Facades\Datatables;
 
 class TimeEntryController extends Controller
@@ -125,8 +122,27 @@ class TimeEntryController extends Controller
                 return 'N/A';
             })
             ->editColumn('total', function ($object) {
-                return '10';
+                $text = getBCHoursDiff($object->dated, $object->time_start, $object->time_end);
+
+                return tdLabel('success', $text);
             })
+            ->editColumn('action', function ($object) {
+                $action = listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
+
+                return tdCenter($action);
+            })
+            ->rawColumns(['total', 'action'])
             ->make(true);
+    }
+
+    public function destroy(Todo $todo)
+    {
+        if (!$todo->delete($todo)) {
+            return redirect()->back()->withErrors(['Could not delete!']);
+        }
+
+        flash('Todo Deleted Succesfully', 'success');
+
+        return redirect()->back();
     }
 }

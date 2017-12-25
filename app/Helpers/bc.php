@@ -10,6 +10,8 @@
  *
  */
 
+use Carbon\Carbon;
+
 /**
  * Get's info from basecamp
  * @param $action
@@ -233,5 +235,20 @@ function getTodoListTodos($todolistId)
     asort($finalData);
 
     return $finalData;
+}
+
+function getBCHoursDiff($date, $startTime, $endTime)
+{
+    $sTime = Carbon::parse($date . ' ' . $startTime);
+    $eTime = Carbon::parse($date . ' ' . $endTime);
+
+    $diffInMinutes = $eTime->diffInMinutes($sTime);
+
+    // make sure difference is not negative
+    if ($diffInMinutes < 0) {
+        return 0;
+    }
+
+    return number_format($diffInMinutes / 60, 2);
 }
 

@@ -2,6 +2,8 @@
 
 namespace App\DataTables;
 
+use function tdCenter;
+use function tdLabel;
 use Yajra\Datatables\Services\DataTable;
 
 class PendingTodosDataTable extends DataTable
@@ -22,8 +24,16 @@ class PendingTodosDataTable extends DataTable
                 return 'N/A';
             })
             ->editColumn('total', function ($object) {
-                return '10';
+                $text = getBCHoursDiff($object->dated, $object->time_start, $object->time_end);
+
+                return tdLabel('success', $text);
             })
+            ->editColumn('action', function ($object) {
+                $action = listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
+
+                return tdCenter($action);
+            })
+            ->rawColumns(['total', 'action'])
             ->make(true);
     }
 
@@ -49,7 +59,7 @@ class PendingTodosDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->ajax('')
-            //->addAction(['width' => '80px'])
+            ->addAction(['width' => '1px'])
             ->parameters($this->getBuilderParameters());
     }
 

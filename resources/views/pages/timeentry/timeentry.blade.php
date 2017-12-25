@@ -13,9 +13,11 @@
     </ul>
     <div class="tab-content">
         <div class="active tab-pane fade in" id="pending">
+            <br>
             @widget('App.Widgets.PendingTodosWidget')
         </div>
         <div class="tab-pane fade" id="posted">
+            <br>
             @widget('App.Widgets.PostedTodosWidget')
         </div>
     </div>

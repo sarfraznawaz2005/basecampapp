@@ -132,4 +132,110 @@ function title($title = '')
     return config('app.name');
 }
 
+/**
+ * make listing edit button
+ *
+ * @param $link
+ * @param string $title
+ * @return string
+ */
+function listingEditButton($link, $title = 'Edit')
+{
+    $html = <<< HTML
+    <a data-placement="top" data-tooltip data-original-title="$title" class="edit_btn" href="$link">
+        <b class="btn btn-primary btn-sm glyphicon glyphicon-pencil"></b>
+    </a>
+HTML;
+
+    return $html;
+}
+
+/**
+ * make listing view button
+ *
+ * @param $link
+ * @param string $title
+ * @return string
+ */
+function listingViewButton($link, $title = 'View')
+{
+    $html = <<< HTML
+    <a data-placement="top" data-tooltip data-original-title="$title" class="edit_btn" href="$link">
+        <b class="btn btn-success btn-sm glyphicon glyphicon-eye-open"></b>
+    </a>
+HTML;
+
+    return $html;
+}
+
+/**
+ * make listing delete button
+ *
+ * @param $link
+ * @param string $title
+ * @param bool $showTip
+ * @param bool $icon
+ * @return string
+ */
+function listingDeleteButton($link, $title = 'this', $showTip = true, $icon = true)
+{
+    $tooltipClass = $showTip ? 'data-tooltip' : '';
+    $csrf_field = csrf_field();
+    $method_field = method_field('DELETE');
+    $text = $icon ? '<b class="btn btn-danger btn-sm glyphicon glyphicon-trash"></b>' : 'Delete';
+    $btnClass = $icon ? '' : 'btn btn-danger btn-sm';
+
+    $html = <<< HTML
+    <form action="$link" method="POST" style="display: inline;">
+        $csrf_field
+        $method_field
+
+        <a data-placement="top" $tooltipClass data-original-title="Delete" 
+        class="delete_btn confirm-delete $btnClass"
+        data-label="$title"
+        href="javascript:void(0);">
+            $text
+        </a>
+    </form>
+HTML;
+
+    return $html;
+}
+
+/**
+ * Centers content on dataTable.
+ *
+ * @param $data
+ * @return string
+ */
+function tdCenter($data, $width = 'auto')
+{
+    return "<span class='tdcenter' style='width: $width; text-align: center; display: inline-block;'>$data</span>";
+}
+
+function tdBold($data)
+{
+    return "<span style='font-weight: bold;'>$data</span>";
+}
+
+function tdCheckBox($id, $column, $target, $checked = false)
+{
+    $checked = $checked ? 'checked' : '';
+
+    return "<input data-id='$id' data-column='$column' data-target='$target' class='dt_chk' type='checkbox' $checked>";
+}
+
+/**
+ * Returns label style for column of dataTable
+ *
+ * @param $type
+ * @param $text
+ * @param string $width
+ * @return string
+ */
+function tdLabel($type, $text, $width = '60px')
+{
+    return "<label class='label label-$type tdcenter' style='width: $width;  line-height: 15px; margin-top: 7px; display: inline-block;'>$text</label>";
+}
+
 

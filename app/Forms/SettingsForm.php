@@ -22,7 +22,9 @@ class SettingsForm extends Form
             ->add('password', 'password', [
                 'rules' => 'sometimes|confirmed'
             ])
-            ->add('password_confirmation', 'password')
+            ->add('password_confirmation', 'password', [
+                'label' => 'Password Confirmation',
+            ])
             ->add('basecamp_info', 'static', [
                 'tag' => 'div',
                 'label' => false,

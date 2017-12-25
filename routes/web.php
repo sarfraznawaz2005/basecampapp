@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     // time entry
     Route::get('timeentry', 'TimeEntryController@index')->name('timeentry');
     Route::post('timeentry', 'TimeEntryController@store');
+    Route::delete('delete_todo/{todo}', 'TimeEntryController@destroy')->name('delete_todo');
 
     // ajax
     Route::get('todolists/{projectId}', 'TimeEntryController@todoLists');

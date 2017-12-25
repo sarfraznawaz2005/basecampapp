@@ -17,8 +17,9 @@ class ProjectsDataTable extends DataTable
         return $this->datatables
             ->of($this->query())
             ->editColumn('hours', function ($array) {
-                return number_format($array['hours'], 2);
+                return tdLabel('success', number_format($array['hours'], 2));
             })
+            ->rawColumns(['hours'])
             ->make(true);
     }
 
