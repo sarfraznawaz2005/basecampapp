@@ -106,6 +106,6 @@ class ProjectsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'users_' . time();
+        return 'projects_' . time();
     }
 }

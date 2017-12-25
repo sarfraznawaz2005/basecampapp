@@ -2,11 +2,12 @@
 
 namespace App\DataTables;
 
-use function tdCenter;
+use App\Models\User;
 use function tdLabel;
 use Yajra\Datatables\Services\DataTable;
+use function tdCenter;
 
-class PendingTodosDataTable extends DataTable
+class UsersDataTable extends DataTable
 {
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -16,27 +17,28 @@ class PendingTodosDataTable extends DataTable
     {
         return $this->datatables
             ->of($this->query())
-            ->editColumn('check', function ($object) {
-                return '<input type="checkbox" class="chk_post" name="selected_todos[]" value="' . $object->id . '">';
+            ->editColumn('pending_hours', function ($object) {
+                return tdLabel('warning', $object->pendingTodosHours());
             })
-            ->editColumn('project', function ($object) {
-                if ($object->project) {
-                    return $object->project->project_name;
-                }
-
-                return 'N/A';
+            ->editColumn('posted_hours', function ($object) {
+                return tdLabel('warning', $object->postedTodosHours());
             })
-            ->editColumn('total', function ($object) {
-                $text = getBCHoursDiff($object->dated, $object->time_start, $object->time_end);
+            ->editColumn('is_admin', function ($object) {
+                $text = $object->is_admin === 1 ? 'Yes' : 'No';
+                $type = $object->is_admin === 1 ? 'success' : 'default';
 
-                return tdLabel('success', $text);
+                return tdLabel($type, $text);
             })
             ->editColumn('action', function ($object) {
-                $action = listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
+                $action = '';
+
+                if ($object->id !== user()->id) {
+                    $action = $this->loginAsButton(route('user.loginas', $object));
+                }
 
                 return tdCenter($action);
             })
-            ->rawColumns(['check', 'total', 'action'])
+            ->rawColumns(['pending_hours', 'posted_hours', 'is_admin', 'action'])
             ->make(true);
     }
 
@@ -47,7 +49,7 @@ class PendingTodosDataTable extends DataTable
      */
     public function query()
     {
-        $query = user()->pendingTodos;
+        $query = User::all();
 
         return $this->applyScopes($query);
     }
@@ -99,19 +101,11 @@ class PendingTodosDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            [
-                'data' => 'check',
-                'name' => 'check',
-                'title' => '<input type="checkbox" id="checkAll">',
-                'orderable' => false,
-                'searchable' => false,
-            ],
-            'dated',
-            'project',
-            'description',
-            'time_start',
-            'time_end',
-            'total',
+            'name',
+            'email',
+            'is_admin',
+            'pending_hours',
+            'posted_hours',
         ];
     }
 
@@ -122,6 +116,20 @@ class PendingTodosDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'pending_todos_' . time();
+        return 'users_' . time();
+    }
+
+    protected function loginAsButton($link)
+    {
+        $title = 'Login as User';
+        $type = 'primary';
+
+        $html = <<< HTML
+        <a data-placement="top" data-tooltip data-original-title="$title" title="$title" class="edit_btn" href="$link">
+            <b class="btn btn-$type btn-sm glyphicon glyphicon-user"></b>
+        </a>
+HTML;
+
+        return $html;
     }
 }

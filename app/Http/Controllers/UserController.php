@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UsersDataTable;
 use App\Forms\SettingsForm;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -49,5 +50,52 @@ class UserController extends Controller
 
         flash('Updated Successfully!', 'success');
         return redirect()->back();
+    }
+
+    /**
+     * Lists users.
+     *
+     * @param UsersDataTable $dataTable
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
+    public function listUsers(UsersDataTable $dataTable)
+    {
+        title('Users');
+
+        return $dataTable->render('shared.table');
+    }
+
+    /**
+     * Login as user.
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function loginAs(User $user)
+    {
+        session(['isloginas' => true]);
+
+        auth()->loginUsingId($user->id);
+
+        flash('Logged in as ' . $user->name, 'success');
+
+        return redirect()->to(route('home'));
+    }
+
+    /**
+     * Revert Login as user.
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function RevertLoginAs(User $user)
+    {
+        session(['isloginas' => false]);
+
+        auth()->loginUsingId($user->id);
+
+        flash('Welcome back ' . $user->name, 'success');
+
+        return redirect()->to(route('users'));
     }
 }

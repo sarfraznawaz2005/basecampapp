@@ -16,6 +16,6 @@ class ProjectController extends Controller
 
         $dataTable->projectId = $projectId;
 
-        return $dataTable->render('pages.project.project');
+        return $dataTable->render('shared.table');
     }
 }

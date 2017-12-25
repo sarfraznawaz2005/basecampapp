@@ -33,6 +33,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
+    }
+
     /**
      * Get's user's projects in which he has time entries
      *

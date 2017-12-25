@@ -90,6 +90,11 @@ class LoginController extends Controller
 
     protected function setup()
     {
+        // save original user info in session
+        if (user()->isAdmin()) {
+            session(['ouid' => user()->id]);
+        }
+
         // show welcome message
         flash('Welcome ' . user()->name . '!', 'success');
 

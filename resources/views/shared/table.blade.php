@@ -1,11 +1,9 @@
-@extends('frontend::layout')
+@extends('layouts.app')
 
 @section('content')
-    <div class="tab-content">
-        <div id="manage" class="tab-pane fade in active">
-            {!! $dataTable->table(['class' => 'table table-condensed table-striped table-bordered table-hover dt-responsive nowrap'], true) !!}
-        </div>
-    </div>
+    {!! $dataTable->table()  !!}
 @endsection
 
-@include('core::shared.datatables_export')
+@push('scripts')
+    {!! $dataTable->scripts() !!}
+@endpush

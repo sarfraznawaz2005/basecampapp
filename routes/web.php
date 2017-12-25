@@ -29,4 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // datatables
     Route::get('datatable_posted_todos', 'TimeEntryController@postedTodos')->name('datatable_posted_todos');
+
+    // users
+    Route::get('users', 'UserController@listUsers')->name('users');
+    Route::get('loginas/{user}', 'UserController@loginAs')->name('user.loginas');
+    Route::get('revert_loginas/{user}', 'UserController@RevertLoginAs')->name('user.revert_loginas');
 });

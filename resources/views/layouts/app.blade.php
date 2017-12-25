@@ -55,6 +55,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li class="{{active(['timeentry'])}}"><a href="{{route('timeentry')}}">Time Entry</a></li>
+
+                    @if (user() && user()->isAdmin())
+                        <li class="{{active(['users'])}}"><a href="{{route('users')}}">Users</a></li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -123,6 +127,25 @@
     </div>
 
 </div>
+
+
+@if(session('ouid') && session('isloginas'))
+    <div class="loginas">
+        <a href="{{route('user.revert_loginas', \App\Models\User::find(session('ouid')))}}"
+           class="btn btn-primary btn-block pulsate">
+            <i class="glyphicon glyphicon-refresh"></i> Revert Login
+        </a>
+    </div>
+
+    <style>
+        .loginas {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99999999999999;
+        }
+    </style>
+@endif
 
 <!-- Scripts -->
 {!! Packer::js([
