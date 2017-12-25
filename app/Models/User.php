@@ -109,7 +109,7 @@ class User extends Authenticatable
             $hours += $diff;
         }
 
-        return $hours;
+        return $hours ?: '0.00';
     }
 
     public function pendingTodosHours()
@@ -124,7 +124,7 @@ class User extends Authenticatable
             $hours += $diff;
         }
 
-        return $hours;
+        return $hours ?: '0.00';
     }
 
     public function postedTodosHours()
@@ -139,6 +139,6 @@ class User extends Authenticatable
             $hours += $diff;
         }
 
-        return $hours;
+        return $hours ?: '0.00';
     }
 }

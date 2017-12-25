@@ -76,7 +76,7 @@ class UsersDataTable extends DataTable
     protected function getBuilderParameters()
     {
         return [
-            'order' => [4, 'asc'],
+            'order' => [4, 'desc'],
             'dom' => 'Bfrtipr',
             'pageLength' => 25,
             'autoWidth' => true,
