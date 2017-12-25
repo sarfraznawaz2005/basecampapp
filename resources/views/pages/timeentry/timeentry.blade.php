@@ -14,7 +14,14 @@
     <div class="tab-content">
         <div class="active tab-pane fade in" id="pending">
             <br>
-            @widget('App.Widgets.PendingTodosWidget')
+
+            <form action="#" id="pendingTodosForm">
+                @widget('App.Widgets.PendingTodosWidget')
+            </form>
+
+            <button class="btn btn-primary" id="btnPost">
+                <i class="glyphicon glyphicon-upload"></i> Post Selected
+            </button>
         </div>
         <div class="tab-pane fade" id="posted">
             <br>
@@ -259,6 +266,45 @@
 
             return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
         }
+
+        // post selected todos code...
+        $('#checkAll').click(function () {
+            var checked = this.checked;
+
+            $('.dataTable .chk_post').each(function () {
+                this.checked = checked;
+            });
+        });
+
+        $('#btnPost').click(function () {
+            var $this = $(this);
+            var btnText = $(this).html();
+            var checkedCheckboxCount = $('.dataTable .chk_post:checked').length;
+            var data = $('#pendingTodosForm').serialize();
+
+            if (!checkedCheckboxCount) {
+                showAlert('Nothing Selected!', 'warning');
+                return false;
+            }
+
+            $this.attr('disabled', true);
+            $this.text('Working, please wait...');
+
+            // send
+            $.post('/post_todos', {data: data}, function (response) {
+                $this.attr('disabled', false);
+                $this.html(btnText);
+
+                if (response === 'ok') {
+                    window.location.reload()
+                }
+                else {
+                    showAlert('Unable to post :(', 'error');
+                }
+            });
+
+        });
+
     </script>
 @endpush
 

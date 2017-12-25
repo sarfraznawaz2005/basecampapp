@@ -16,6 +16,9 @@ class PendingTodosDataTable extends DataTable
     {
         return $this->datatables
             ->of($this->query())
+            ->editColumn('check', function ($object) {
+                return '<input type="checkbox" class="chk_post" name="selected_todos[]" value="' . $object->id . '">';
+            })
             ->editColumn('project', function ($object) {
                 if ($object->project) {
                     return $object->project->project_name;
@@ -33,7 +36,7 @@ class PendingTodosDataTable extends DataTable
 
                 return tdCenter($action);
             })
-            ->rawColumns(['total', 'action'])
+            ->rawColumns(['check', 'total', 'action'])
             ->make(true);
     }
 
@@ -71,7 +74,7 @@ class PendingTodosDataTable extends DataTable
     protected function getBuilderParameters()
     {
         return [
-            'order' => [[0, 'desc']],
+            'order' => [[1, 'desc']],
             'dom' => 'Bfrtipr',
             'pageLength' => 25,
             'autoWidth' => true,
@@ -96,6 +99,13 @@ class PendingTodosDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            [
+                'data' => 'check',
+                'name' => 'check',
+                'title' => '<input type="checkbox" id="checkAll">',
+                'orderable' => false,
+                'searchable' => false,
+            ],
             'dated',
             'project',
             'description',

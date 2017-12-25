@@ -130,6 +130,7 @@
         $(document).ready(hideLoader);
 
         function showLoader() {
+            hideLoader();
             $('.loading-indicator-with-overlay').show();
         }
 

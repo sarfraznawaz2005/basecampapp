@@ -97,7 +97,7 @@ function showAlert(message, type, closeOnEscapeKey, callback) {
     }
 
     swal({
-        title: "Information",
+        title: "",
         text: message,
         type: type,
         html: true,

@@ -1,5 +1,5 @@
 <style>
-    #__cover__ {
+    #overlay__ {
         position: fixed;
         top: 0;
         left: 0;
@@ -13,12 +13,27 @@
         display: none;
     }
 
-    #__cover__ span {
+    #overlay__ span {
         display: table-cell;
         vertical-align: middle;
     }
 </style>
 
-<div id="__cover__" align="center">
+<div id="overlay__" align="center">
     <span>Please wait...</span>
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+
+        $(document).ready(hideOverlay);
+
+        function showOverlay() {
+            $('#overlay__').show();
+        }
+
+        function hideOverlay() {
+            $('#overlay__').hide();
+        }
+    </script>
+@endpush

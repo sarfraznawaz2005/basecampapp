@@ -51,6 +51,42 @@ function getInfo($action, $queryString = '')
     return $response;
 }
 
+function postInfo($action, $xmlData)
+{
+    if (!credentialsOk()) {
+        return '';
+    }
+
+    @unlink('headers');
+
+    $url = 'https://' . companyName() . '.basecamphq.com/' . $action;
+
+    $session = curl_init();
+    curl_setopt($session, CURLOPT_URL, $url);
+    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
+    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($session, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($session, CURLOPT_POSTFIELDS, $xmlData);
+    curl_setopt($session, CURLOPT_HEADERFUNCTION, "HandleHeaderLine");
+
+    curl_exec($session);
+    curl_close($session);
+
+    $response = file_get_contents('headers');
+
+    return $response;
+}
+
+function HandleHeaderLine($curl, $header_line)
+{
+    file_put_contents('headers', $header_line);
+
+    return $header_line;
+}
+
 function companyName()
 {
     return user()->basecamp_org;

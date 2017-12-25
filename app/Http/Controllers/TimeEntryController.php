@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PendingTodosDataTable;
 use App\Models\Todo;
+use Illuminate\Support\Str;
+use function parse_str;
+use function request;
+use function set_time_limit;
+use function sleep;
+use function str_slug;
 use Yajra\Datatables\Facades\Datatables;
 
 class TimeEntryController extends Controller
@@ -144,5 +150,63 @@ class TimeEntryController extends Controller
         flash('Todo Deleted Succesfully', 'success');
 
         return redirect()->back();
+    }
+
+    public function postTodos(Todo $todo)
+    {
+        set_time_limit(0);
+
+        $posted = '';
+
+        if (trim(request()->data)) {
+            $todoIDs = [];
+
+            parse_str(request()->data, $todoIDs);
+
+            if (isset($todoIDs['selected_todos']) && $todoIDs['selected_todos']) {
+                foreach ($todoIDs['selected_todos'] as $todoID) {
+
+                    $todo = $todo->find($todoID);
+
+                    if ($todo) {
+
+                        $personId = user()->basecamp_api_user_id;
+                        $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
+                        $projectName = $todo->project->project_name;
+
+                        // find out action endpoint to post to basecamp
+                        $action = 'projects/' . $todo->project_id . '-' . str_slug($projectName) . '/time_entries.xml';
+
+
+                        $xmlData = <<< XMLDATA
+<time-entry>
+  <date>{$todo->dated}</date>
+  <description>{$todo->description}</description>
+  <hours>$hours</hours>
+  <person-id>$personId</person-id>
+  <todo-item-id>{$todo->todo_id}</todo-item-id>
+</time-entry>
+XMLDATA;
+
+                        // send to basecamp
+                        $responseHeader = postInfo($action, $xmlData);
+
+                        // check to see if it was posted successfully to BC
+                        if (Str::contains($responseHeader, 'Created')) {
+                            // update to do status
+                            $todo->status = 'posted';
+                            $todo->save();
+
+                            $posted = 'ok';
+                        }
+
+                        // so that we do not send post request too fast to BC
+                        sleep(1);
+                    }
+                }
+            }
+        }
+
+        return $posted;
     }
 }
