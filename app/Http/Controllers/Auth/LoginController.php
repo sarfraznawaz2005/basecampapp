@@ -99,9 +99,11 @@ class LoginController extends Controller
         flash('Welcome ' . user()->name . '!', 'success');
 
         // refresh data on login - order is important
-        Data::addUserProjects();
-        Data::getUserMonthlyHours(true);
-        Data::getUserProjectlyHours(true);
+        if (Data::checkConnection(user()->basecamp_api_user_id)) {
+            Data::addUserProjects();
+            Data::getUserMonthlyHours(true);
+            Data::getUserProjectlyHours(true);
+        }
     }
 
 }

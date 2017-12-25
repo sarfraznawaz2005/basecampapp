@@ -75,4 +75,16 @@ class Data
             $projectInstance->save();
         }
     }
+
+    public static function checkConnection($bcUserId)
+    {
+        $name = getPersonName($bcUserId);
+
+        if (!$name) {
+            flash('Could not connect to BaseCamp with your provided details, make sure they are correct!', 'warning');
+            return false;
+        }
+
+        return true;
+    }
 }

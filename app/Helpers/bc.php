@@ -185,6 +185,13 @@ function getProjectName($id)
     return isset($data['name']) ? $data['name'] : '';
 }
 
+function getPersonName($id)
+{
+    $data = getInfo("people/$id");
+
+    return isset($data['first-name']) ? $data['first-name'] : '';
+}
+
 function getTodoListName($id)
 {
     $data = getInfo("todo_lists/$id");

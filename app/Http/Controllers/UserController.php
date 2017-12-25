@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
+use App\Facades\Data;
 use App\Forms\SettingsForm;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Kris\LaravelFormBuilder\FormBuilder;
 
 class UserController extends Controller
@@ -47,6 +47,8 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        Data::checkConnection($user->basecamp_api_user_id);
 
         flash('Updated Successfully!', 'success');
         return redirect()->back();
