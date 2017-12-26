@@ -92,6 +92,27 @@ class TimeEntryController extends Controller
         return redirect()->back()->withInput();
     }
 
+    public function edit(Todo $todo)
+    {
+        title('Edit Entry');
+
+        $todoLists = [];
+        $todos = [];
+
+        $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
+        asort($projects);
+
+        if (old('project_id')) {
+            $todoLists = json_decode($this->todoLists(old('project_id')), true);
+        }
+
+        if (old('todolist_id')) {
+            $todos = json_decode($this->todos(old('todolist_id')), true);
+        }
+
+        return view('pages.timeentry', compact('projects', 'todoLists', 'todos'));
+    }
+
     /**
      * Returns todolists of given project
      *

@@ -61,7 +61,7 @@
     <div class="modal fade" id="modal-entry">
         <div class="modal-dialog">
             <div class="modal-content">
-                @include('pages.timeentry._form')
+                @include('pages.timeentry._form', ['action' => route('timeentry')])
             </div>
         </div>
     </div>

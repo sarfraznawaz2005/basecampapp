@@ -1,4 +1,4 @@
-<form method="POST" action="{{route('timeentry')}}">
+<form method="POST" action="{{$action}}">
     {{ csrf_field() }}
 
     <div class="modal-header">
@@ -32,6 +32,12 @@
                     @endpush
                 @endif
 
+                @if ($errors->has('project_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('project_id') }}</strong>
+                    </span>
+                @endif
+
             </div>
             <div class="clearfix"></div>
         </div>
@@ -52,6 +58,12 @@
                         <option value="{{$todoListId}}" {{old('todolist_id') && old('todolist_id') == $todoListId ? 'selected' : '' }}>{{$name}}</option>
                     @endforeach
                 </select>
+
+                @if ($errors->has('todolist_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('todolist_id') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="clearfix"></div>
         </div>
@@ -72,6 +84,12 @@
                         <option value="{{$todoId}}" {{old('todo_id') && old('todo_id') == $todoId ? 'selected' : '' }}>{{$name}}</option>
                     @endforeach
                 </select>
+
+                @if ($errors->has('todo_id'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('todo_id') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="clearfix"></div>
         </div>
@@ -88,6 +106,12 @@
                        type="date"
                        id="date"
                        value="{{old('dated') ? old('dated') : date('Y-m-d')}}">
+
+                @if ($errors->has('dated'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('dated') }}</strong>
+                    </span>
+                @endif
             </div>
         </div>
         <div class="pull-right">
@@ -100,6 +124,12 @@
                        type="time"
                        value="{{ old('time_start') }}"
                        id="time_start">
+
+                @if ($errors->has('time_start'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('time_start') }}</strong>
+                    </span>
+                @endif
             </div>
 
             <div class="pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -113,6 +143,12 @@
                        type="time"
                        value="{{ old('time_end') }}"
                        id="time_end">
+
+                @if ($errors->has('time_end'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('time_end') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="clearfix"></div>
         </div>
@@ -125,6 +161,12 @@
                    name="description"
                    value="{{ old('description') }}"
                    type="text">
+
+            @if ($errors->has('description'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('description') }}</strong>
+                </span>
+            @endif
         </div>
 
     </div>
