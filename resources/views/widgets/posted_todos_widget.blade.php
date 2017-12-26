@@ -17,7 +17,7 @@
         function postedTodosDataTable() {
             if (!$.fn.dataTable.isDataTable('#posted_todos_table')) {
                 var $dataTable = $('#posted_todos_table').DataTable({
-                    order: [[0, 'desc']],
+                    order: [[0, 'desc'], [3, 'desc']],
                     dom: 'Bfrtipr',
                     ordering: true,
                     pageLength: 25,

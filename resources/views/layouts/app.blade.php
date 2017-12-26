@@ -46,7 +46,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="favicon.ico" alt="Logo">
+                    <img src="/favicon.ico" alt="Logo">
                     {{ config('app.name', 'BasecampApp') }}
                 </a>
 
