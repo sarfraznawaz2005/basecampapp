@@ -280,16 +280,15 @@ function getTodoListTodos($todolistId)
     return $finalData;
 }
 
-function getBCHoursDiff($date, $startTime, $endTime)
+function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false)
 {
     $sTime = Carbon::parse($date . ' ' . $startTime);
     $eTime = Carbon::parse($date . ' ' . $endTime);
 
-    $diffInMinutes = $eTime->diffInMinutes($sTime);
+    $diffInMinutes = $sTime->diffInMinutes($eTime, false);
 
-    // make sure difference is not negative
-    if ($diffInMinutes < 0) {
-        return 0;
+    if ($diffInMinutes < 0 && !$returnNegative) {
+        return number_format(0, 2);
     }
 
     return number_format($diffInMinutes / 60, 2);

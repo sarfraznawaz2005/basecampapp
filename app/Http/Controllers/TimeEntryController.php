@@ -64,21 +64,14 @@ class TimeEntryController extends Controller
             'description' => 'required',
         ]);
 
-        // todo : FIX
-        // make sure end time is greater than start time
         ///////////////////////////////////////////////////
-        /*
-        $sTime = date('Y-m-d h:i', strtotime(request()->dated . ' ' . request()->time_start));
-        $eTime = date('Y-m-d h:i', strtotime(request()->dated . ' ' . request()->time_end));
+        // make sure end time is greater than start time
+        $diff = getBCHoursDiff(request()->dated, request()->time_start, request()->time_end, true);
 
-        if (strtotime($sTime) > strtotime($eTime)) {
+        if ($diff < 0) {
             flash('Start Time cannot greater than End Time.', 'danger');
             return redirect()->back()->withInput();
-        } elseif (strtotime($sTime) == strtotime($eTime)) {
-            flash('Both times specified are same.', 'danger');
-            return redirect()->back()->withInput();
         }
-        */
         ///////////////////////////////////////////////////
 
         $todo->fill(request()->all());
