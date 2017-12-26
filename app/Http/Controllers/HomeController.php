@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        title(config('app.name'));
+        title('Dashboard');
 
         // total monthly hours so far
         $totalHours = Data::getUserMonthlyHours();

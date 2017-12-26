@@ -10,3 +10,22 @@
     display: inline;
     margin-bottom: 4px;
 }
+
+table.dataTable td {
+    font-size: 90%;
+    font-family: Tahoma, serif;
+    color: #000;
+    vertical-align: baseline !important;
+    padding: 2px 5px !important;
+}
+
+table.dataTable thead th {
+    font-size: 90%;
+    font-family: Tahoma, serif;
+    background: #ddd;
+}
+
+table.dataTable label.label {
+    font-size: 105%;
+    font-family: Tahoma, serif !important;
+}
