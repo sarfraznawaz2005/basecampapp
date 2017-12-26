@@ -26,7 +26,7 @@
                 'legend': 'left',
                 'chartArea': {
                     left: "0",
-                    top: "3%",
+                    top: "0",
                     height: "100%",
                     width: "100%"
                 }

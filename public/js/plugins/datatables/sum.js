@@ -15,7 +15,7 @@ function sumColumn(tableSelector, columnIndex) {
 
     for (var i = 1; i <= totalTDs; i++) {
         if (i === columnIndex) {
-            $(tableSelector + ' tr:last').append('<td><strong>' + Number(total).toFixed(2) + '</strong></td>');
+            $(tableSelector + ' tr:last').append('<td align="center"><strong>' + Number(total).toFixed(2) + '</strong></td>');
         }
         else {
             $(tableSelector + ' tr:last').append('<td>&nbsp;</td>');

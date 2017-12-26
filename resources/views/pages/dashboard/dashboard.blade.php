@@ -54,6 +54,7 @@
         #piechart {
             width: 600px;
             height: 400px;
+            margin-left: 100px !important;
         }
     </style>
 @endpush

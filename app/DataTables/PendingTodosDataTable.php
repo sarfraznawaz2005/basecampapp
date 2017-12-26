@@ -74,7 +74,7 @@ class PendingTodosDataTable extends DataTable
     protected function getBuilderParameters()
     {
         return [
-            'order' => [[1, 'desc']],
+            'order' => [[1, 'desc'], [4, 'desc']],
             'dom' => 'Bfrtipr',
             'pageLength' => 25,
             'autoWidth' => true,

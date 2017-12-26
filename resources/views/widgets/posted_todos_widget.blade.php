@@ -1,4 +1,4 @@
-<table id="posted_todos_table" class="table dataTable no-footer" role="grid" style="width: 100%">
+<table id="posted_todos_table" class="table table-condensed table-striped table-bordered table-hover" role="grid" style="width: 100%">
     <thead>
     <tr role="row">
         <th>Dated</th>

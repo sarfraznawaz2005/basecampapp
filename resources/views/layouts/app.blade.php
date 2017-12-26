@@ -101,27 +101,25 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="pull-left"><strong>{{title()}}</strong></div>
-                        <div class="pull-right">@yield('title_area')</div>
-                        <div class="clearfix"></div>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-left"><strong>{{title()}}</strong></div>
+                    <div class="pull-right">@yield('title_area')</div>
+                    <div class="clearfix"></div>
+                </div>
 
-                    <div class="panel-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                        @include('shared.message')
-                        @include('shared.errors')
-                        @include('shared.loader')
+                    @include('shared.message')
+                    @include('shared.errors')
+                    @include('shared.loader')
 
-                        @yield('content')
-                    </div>
+                    @yield('content')
                 </div>
             </div>
         </div>
