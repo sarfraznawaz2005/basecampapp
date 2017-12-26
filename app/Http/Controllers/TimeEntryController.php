@@ -100,6 +100,29 @@ class TimeEntryController extends Controller
 
     public function update(Todo $todo)
     {
+        addRequestVar('user_id', user()->id);
+
+        $this->validate(request(), [
+            'user_id' => 'required',
+            'project_id' => 'required',
+            'todolist_id' => 'required',
+            'todo_id' => 'required',
+            'dated' => 'required',
+            'time_start' => 'required',
+            'time_end' => 'required',
+            'description' => 'required',
+        ]);
+
+        ///////////////////////////////////////////////////
+        // make sure end time is greater than start time
+        $diff = getBCHoursDiff(request()->dated, request()->time_start, request()->time_end, true);
+
+        if ($diff < 0) {
+            flash('Start Time cannot greater than End Time.', 'danger');
+            return redirect()->back()->withInput();
+        }
+        ///////////////////////////////////////////////////
+
         $todo->fill(request()->all());
 
         if (!$todo->save()) {
