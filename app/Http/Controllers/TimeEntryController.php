@@ -47,13 +47,39 @@ class TimeEntryController extends Controller
      * Stores a to do.
      *
      * @param Todo $todo
-     * @return \Illuminate\Http\RedirectResponse
+     * @return TimeEntryController
      */
     public function store(Todo $todo)
     {
-        addRequestVar('user_id', user()->id);
+        return $this->saveEntry($todo);
+    }
 
-        $this->validate(request(), [
+    public function edit(Todo $todo)
+    {
+        title('Edit Entry');
+
+        $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
+        asort($projects);
+
+        $todoLists = json_decode($this->todoLists($todo->project_id), true);
+        $todos = json_decode($this->todos($todo->todolist_id), true);
+
+        return view('pages.timeentry.edit', compact('projects', 'todoLists', 'todos', 'todo'));
+    }
+
+    public function update(Todo $todo)
+    {
+        return $this->saveEntry($todo, true);
+    }
+
+    /**
+     * @param Todo $todo
+     * @param bool $isUpdate
+     * @return $this
+     */
+    protected function saveEntry(Todo $todo, $isUpdate = false)
+    {
+        $rules = [
             'user_id' => 'required',
             'project_id' => 'required',
             'todolist_id' => 'required',
@@ -62,7 +88,16 @@ class TimeEntryController extends Controller
             'time_start' => 'required',
             'time_end' => 'required',
             'description' => 'required',
-        ]);
+        ];
+
+        if (!$isUpdate) {
+            addRequestVar('user_id', user()->id);
+        } else {
+            unset($rules['user_id']);
+        }
+
+        // validate
+        $this->validate(request(), $rules);
 
         ///////////////////////////////////////////////////
         // make sure end time is greater than start time
@@ -82,53 +117,11 @@ class TimeEntryController extends Controller
 
         flash('Todo Saved Succesfully', 'success');
 
+        if ($isUpdate) {
+            return redirect()->back();
+        }
+
         return redirect()->back()->withInput();
-    }
-
-    public function edit(Todo $todo)
-    {
-        title('Edit Entry');
-
-        $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
-        asort($projects);
-
-        $todoLists = json_decode($this->todoLists($todo->project_id), true);
-        $todos = json_decode($this->todos($todo->todolist_id), true);
-
-        return view('pages.timeentry.edit', compact('projects', 'todoLists', 'todos', 'todo'));
-    }
-
-    public function update(Todo $todo)
-    {
-        $this->validate(request(), [
-            'project_id' => 'required',
-            'todolist_id' => 'required',
-            'todo_id' => 'required',
-            'dated' => 'required',
-            'time_start' => 'required',
-            'time_end' => 'required',
-            'description' => 'required',
-        ]);
-
-        ///////////////////////////////////////////////////
-        // make sure end time is greater than start time
-        $diff = getBCHoursDiff(request()->dated, request()->time_start, request()->time_end, true);
-
-        if ($diff < 0) {
-            flash('Start Time cannot greater than End Time.', 'danger');
-            return redirect()->back()->withInput();
-        }
-        ///////////////////////////////////////////////////
-
-        $todo->fill(request()->all());
-
-        if (!$todo->save()) {
-            return redirect()->back()->withInput()->withErrors($todo);
-        }
-
-        flash('Todo Updated Succesfully', 'success');
-
-        return redirect()->back();
     }
 
     /**
@@ -221,13 +214,13 @@ class TimeEntryController extends Controller
 
 
                         $xmlData = <<< XMLDATA
-<time-entry>
-  <date>{$todo->dated}</date>
-  <description>{$todo->description}</description>
-  <hours>$hours</hours>
-  <person-id>$personId</person-id>
-  <todo-item-id>{$todo->todo_id}</todo-item-id>
-</time-entry>
+                        <time-entry>
+                          <date>{$todo->dated}</date>
+                          <description>{$todo->description}</description>
+                          <hours>$hours</hours>
+                          <person-id>$personId</person-id>
+                          <todo-item-id>{$todo->todo_id}</todo-item-id>
+                        </time-entry>
 XMLDATA;
 
                         // send to basecamp
@@ -251,4 +244,5 @@ XMLDATA;
 
         return $posted;
     }
+
 }
