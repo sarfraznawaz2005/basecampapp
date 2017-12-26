@@ -16,3 +16,7 @@
     </form>
 
 @endsection
+
+@push('scripts')
+    @include('pages.timeentry._script')
+@endpush
