@@ -16,7 +16,7 @@
     <script>
         function postedTodosDataTable() {
             if (!$.fn.dataTable.isDataTable('#posted_todos_table')) {
-                $('#posted_todos_table').DataTable({
+                var $dataTable = $('#posted_todos_table').DataTable({
                     order: [[0, 'desc']],
                     dom: 'Bfrtipr',
                     ordering: true,
@@ -37,9 +37,14 @@
                         {data: 'action', title: 'Action'}
                     ]
                 });
+
+                $dataTable.on('draw.dt', function () {
+                    sumColumn('#posted_todos_table', 6)
+                });
             }
         }
 
         postedTodosDataTable();
+
     </script>
 @endpush

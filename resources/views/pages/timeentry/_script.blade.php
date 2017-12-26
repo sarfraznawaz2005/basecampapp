@@ -1,5 +1,11 @@
 <script>
 
+    // sum table column
+    $dataTable = $('#dataTableBuilder').dataTable();
+    $dataTable.on('draw.dt', function () {
+        sumColumn('#dataTableBuilder', 7)
+    });
+
     $('#project').change(function () {
         var $this = $(this);
         var $todoListDropdown = $('#todolist');

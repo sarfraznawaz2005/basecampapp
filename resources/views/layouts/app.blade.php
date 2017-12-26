@@ -156,6 +156,7 @@
 '/js/plugins/datatables/jquery.dataTables.min.js',
 '/js/plugins/datatables/datatables.bootstrap.js',
 '/js/plugins/datatables/fnFilterOnReturn.js',
+'/js/plugins/datatables/sum.js',
 '/js/plugins/select2/select2.full.min.js',
 '/js/plugins/sweetalert/dist/sweetalert.min.js',
 '/js/custom.js',

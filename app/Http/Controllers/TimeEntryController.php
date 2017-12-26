@@ -64,8 +64,10 @@ class TimeEntryController extends Controller
             'description' => 'required',
         ]);
 
+        // todo : FIX
         // make sure end time is greater than start time
         ///////////////////////////////////////////////////
+        /*
         $sTime = date('Y-m-d h:i', strtotime(request()->dated . ' ' . request()->time_start));
         $eTime = date('Y-m-d h:i', strtotime(request()->dated . ' ' . request()->time_end));
 
@@ -76,6 +78,7 @@ class TimeEntryController extends Controller
             flash('Both times specified are same.', 'danger');
             return redirect()->back()->withInput();
         }
+        */
         ///////////////////////////////////////////////////
 
         $todo->fill(request()->all());
