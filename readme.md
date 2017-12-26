@@ -1,4 +1,4 @@
-## BasecampApp (Work in Progress)
+## BasecampApp
 
 The BasecampApp is an application to log time entries for your basecamp-classic projects quickly and easily.
 
