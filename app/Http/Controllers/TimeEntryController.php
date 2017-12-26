@@ -96,21 +96,26 @@ class TimeEntryController extends Controller
     {
         title('Edit Entry');
 
-        $todoLists = [];
-        $todos = [];
-
         $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
         asort($projects);
 
-        if (old('project_id')) {
-            $todoLists = json_decode($this->todoLists(old('project_id')), true);
+        $todoLists = json_decode($this->todoLists($todo->project_id), true);
+        $todos = json_decode($this->todos($todo->todolist_id), true);
+
+        return view('pages.timeentry.edit', compact('projects', 'todoLists', 'todos', 'todo'));
+    }
+
+    public function update(Todo $todo)
+    {
+        $todo->fill(request()->all());
+
+        if (!$todo->save()) {
+            return redirect()->back()->withInput()->withErrors($todo);
         }
 
-        if (old('todolist_id')) {
-            $todos = json_decode($this->todos(old('todolist_id')), true);
-        }
+        flash('Todo Updated Succesfully', 'success');
 
-        return view('pages.timeentry', compact('projects', 'todoLists', 'todos'));
+        return redirect()->back();
     }
 
     /**

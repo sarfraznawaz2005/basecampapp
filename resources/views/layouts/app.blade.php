@@ -55,7 +55,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li class="{{active(['timeentry'])}}"><a href="{{route('timeentry')}}">Time Entry</a></li>
+                    <li class="{{active(['timeentry', 'timeentry/*'])}}"><a href="{{route('timeentry')}}">Time Entry</a></li>
 
                     @if (user() && user()->isAdmin())
                         <li class="{{active(['users'])}}"><a href="{{route('users')}}">Users</a></li>

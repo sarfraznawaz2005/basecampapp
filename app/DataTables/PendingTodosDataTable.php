@@ -32,7 +32,10 @@ class PendingTodosDataTable extends DataTable
                 return tdLabel('success', $text);
             })
             ->editColumn('action', function ($object) {
-                $action = listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
+                $action = '';
+
+                $action .= listingEditButton(route('timeentry.edit', [$object]));
+                $action .= listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
 
                 return tdCenter($action);
             })
@@ -62,7 +65,7 @@ class PendingTodosDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->ajax('')
-            ->addAction(['width' => '1px'])
+            ->addAction(['width' => '80px'])
             ->parameters($this->getBuilderParameters());
     }
 
