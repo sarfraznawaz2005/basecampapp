@@ -100,10 +100,7 @@ class TimeEntryController extends Controller
 
     public function update(Todo $todo)
     {
-        addRequestVar('user_id', user()->id);
-
         $this->validate(request(), [
-            'user_id' => 'required',
             'project_id' => 'required',
             'todolist_id' => 'required',
             'todo_id' => 'required',
