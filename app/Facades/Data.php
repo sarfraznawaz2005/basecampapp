@@ -16,7 +16,7 @@ class Data
 {
     public static function getUserMonthlyHours($forceRefresh = false, $userId = 0)
     {
-        $userId = $userId ?: user()->id;
+        $userId = $userId ?: user()->basecamp_api_user_id;
 
         if (!Setting::get("hours.$userId") || $forceRefresh) {
             $totalHours = getTotalWorkedHoursThisMonth($userId);
