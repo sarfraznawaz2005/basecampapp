@@ -152,7 +152,7 @@
                required="required"
                name="time_start"
                type="time"
-               value="{{old('time_start') ? old('time_start') : (isset($todo) ? $todo->time_start : date('h:i a'))}}"
+               value="{{old('time_start') ? old('time_start') : (isset($todo) ? $todo->time_start : date('H:i'))}}"
                id="time_start">
 
         @if ($errors->has('time_start'))
