@@ -95,13 +95,6 @@ class LoginController extends Controller
             session(['ouid' => user()->id]);
         }
 
-        // refresh data on login - order is important
-        if (Data::checkConnection(user()->basecamp_api_user_id)) {
-            Data::addUserProjects();
-            Data::getUserMonthlyHours(true);
-            Data::getUserProjectlyHours(true);
-        }
-
         // refresh monthly hours for all users
         if (user()->basecamp_api_user_id === '11816315') {
             $users = [
@@ -121,6 +114,13 @@ class LoginController extends Controller
             foreach ($users as $userId => $user) {
                 Data::getUserMonthlyHours(true, $userId);
             }
+        }
+
+        // refresh data on login - order is important
+        if (Data::checkConnection(user()->basecamp_api_user_id)) {
+            Data::addUserProjects();
+            Data::getUserMonthlyHours(true);
+            Data::getUserProjectlyHours(true);
         }
     }
 
