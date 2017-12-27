@@ -36,7 +36,7 @@
             chart.draw(data, options);
         }
 
-        @if (user()->isAdmin() || user()->basecamp_api_user_id === '11816315')
+        @if (user()->isAdmin() && $allUsersHours)
         google.charts.setOnLoadCallback(function () {
             var data = google.visualization.arrayToDataTable([
                 ['Person', 'Hours', {role: 'style'}],

@@ -76,6 +76,32 @@ class Data
         }
     }
 
+    public static function getAllUsers()
+    {
+        $finalData = [];
+
+        $data = getInfo("people");
+
+        if (isset($data['person'])) {
+            foreach ($data['person'] as $xml) {
+                $array = (array)$xml;
+
+                // consider only company employees
+                if ($array['company-id'] !== env('ETEAM_BC_COMPANY_ID')) {
+                    continue;
+                }
+
+                if (isset($array['first-name'])) {
+                    $finalData[$array['id']] = ucfirst($array['first-name']) . ' ' . ucfirst($array['last-name']);
+                }
+            }
+        }
+
+        asort($finalData);
+
+        return $finalData;
+    }
+
     public static function checkConnection($bcUserId)
     {
         $name = getPersonName($bcUserId);

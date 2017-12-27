@@ -24,7 +24,7 @@
                 <thead>
                 <tr>
                     <th>Project Name</th>
-                    <th>Total Hours</th>
+                    <th style="text-align: right;">Total Hours</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,9 +32,13 @@
                 @foreach($projects as $project)
                     <tr>
                         <td>
-                            <a href="{{route('project_hours', $project['project_id'])}}">{{$project['project_name']}}</a>
+                            <a href="{{route('project_hours', $project['project_id'])}}">
+                                {{$project['project_name']}}
+                            </a>
                         </td>
-                        <td><span class="label label-success">{{$project['hours']}}</span></td>
+                        <td style="text-align: right;">
+                            <span class="label label-success big">{{$project['hours']}}</span>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

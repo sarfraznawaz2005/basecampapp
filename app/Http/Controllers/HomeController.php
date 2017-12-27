@@ -6,7 +6,9 @@ use App\Facades\Data;
 use App\Models\Project;
 use function collect;
 use function config;
+use function explode;
 use function redirect;
+use function session;
 use function set_time_limit;
 
 class HomeController extends Controller
@@ -38,29 +40,23 @@ class HomeController extends Controller
         $projects = collect($projects)->sortByDesc('hours');
 
         $allUsersHours = [];
-        if (user()->isAdmin() || user()->basecamp_api_user_id === '11816315') {
+        if (user()->isAdmin() && session('all_users')) {
             // ideally should be added and stored rather than being hard-coded
-            $users = [
-                11816315 => 'Sarfraz',
-                10971177 => 'Abdullah',
-                1833053 => 'Faisal',
-                11997273 => 'Shireen',
-                11618976 => 'Shoaib',
-                11685472 => 'Naveed',
-                12026288 => 'Osama Alvi',
-                12253292 => 'BinZia',
-                12221928 => 'Imran',
-                12153923 => 'Kafeel',
-                12292572 => 'Majid',
-            ];
+            $users = session('all_users');
 
             foreach ($users as $userId => $user) {
+                $nameArray = explode(' ', $user);
+                $name = $nameArray[0] . ' ' . $nameArray[1][0];
+
                 $hours = Data::getUserMonthlyHours(false, $userId);
                 $allUsersHours[] = [
-                    'name' => $user,
+                    'name' => $name,
                     'hours' => $hours,
                     'color' => substr(md5(rand()), 0, 6),
                 ];
+
+                // sort by max hours
+                $allUsersHours = collect($allUsersHours)->sortByDesc('hours');
             }
         }
 
