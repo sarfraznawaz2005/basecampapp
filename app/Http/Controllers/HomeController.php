@@ -37,8 +37,35 @@ class HomeController extends Controller
         $projects = Data::getUserProjectlyHours();
         $projects = collect($projects)->sortByDesc('hours');
 
+        $allUsersHours = [];
+        if (user()->basecamp_api_user_id === '11816315') {
+            // ideally should be added and stored rather than being hard-coded
+            $users = [
+                11816315 => 'Sarfraz',
+                10971177 => 'Abdullah',
+                1833053 => 'Faisal',
+                11997273 => 'Shireen',
+                11618976 => 'Shoaib',
+                11685472 => 'Naveed',
+                12026288 => 'Osama Alvi',
+                12253292 => 'BinZia',
+                12221928 => 'Imran',
+                12153923 => 'Kafeel',
+                12292572 => 'Majid',
+            ];
+
+            foreach ($users as $userId => $user) {
+                $hours = Data::getUserMonthlyHours(false, $userId);
+                $allUsersHours[] = [
+                    'name' => $user,
+                    'hours' => $hours,
+                    'color' => substr(md5(rand()), 0, 6),
+                ];
+            }
+        }
+
         return view('pages.dashboard.dashboard',
-            compact('totalHours', 'projects')
+            compact('totalHours', 'projects', 'allUsersHours')
         );
     }
 

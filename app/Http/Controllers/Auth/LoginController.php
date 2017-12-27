@@ -101,6 +101,27 @@ class LoginController extends Controller
             Data::getUserMonthlyHours(true);
             Data::getUserProjectlyHours(true);
         }
+
+        // refresh monthly hours for all users
+        if (user()->basecamp_api_user_id === '11816315') {
+            $users = [
+                11816315 => 'Sarfraz',
+                10971177 => 'Abdullah',
+                1833053 => 'Faisal',
+                11997273 => 'Shireen',
+                11618976 => 'Shoaib',
+                11685472 => 'Naveed',
+                12026288 => 'Osama Alvi',
+                12253292 => 'BinZia',
+                12221928 => 'Imran',
+                12153923 => 'Kafeel',
+                12292572 => 'Majid',
+            ];
+
+            foreach ($users as $userId => $user) {
+                Data::getUserMonthlyHours(true, $userId);
+            }
+        }
     }
 
 }

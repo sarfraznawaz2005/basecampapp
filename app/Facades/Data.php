@@ -14,12 +14,12 @@ use Setting;
 
 class Data
 {
-    public static function getUserMonthlyHours($forceRefresh = false)
+    public static function getUserMonthlyHours($forceRefresh = false, $userId = 0)
     {
-        $userId = user()->id;
+        $userId = $userId ?: user()->id;
 
         if (!Setting::get("hours.$userId") || $forceRefresh) {
-            $totalHours = getTotalWorkedHoursThisMonth();
+            $totalHours = getTotalWorkedHoursThisMonth($userId);
 
             Setting::set("hours.$userId", $totalHours);
             Setting::save();

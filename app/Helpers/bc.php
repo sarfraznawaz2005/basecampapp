@@ -97,9 +97,9 @@ function apiKey()
     return user()->basecamp_api_key;
 }
 
-function bcUserId()
+function bcUserId($bcUserId = 0)
 {
-    return user()->basecamp_api_user_id;
+    return $bcUserId ?: user()->basecamp_api_user_id;
 }
 
 function credentialsOk()
@@ -115,9 +115,9 @@ function credentialsOk()
 ## DATA FUNCTIONS
 ##############################################################
 
-function getWorkedHoursData()
+function getWorkedHoursData($bcUserId = 0)
 {
-    $userId = bcUserId();
+    $userId = bcUserId($bcUserId);
     $sDate = date('Y-m-1');
     $eDate = date('Y-m-d');
 
@@ -128,16 +128,19 @@ function getWorkedHoursData()
     return $data;
 }
 
-function getTotalWorkedHoursThisMonth()
+function getTotalWorkedHoursThisMonth($bcUserId = 0)
 {
     $hours = 0;
 
-    $data = getWorkedHoursData();
+    $data = getWorkedHoursData($bcUserId);
 
     if (isset($data['time-entry'])) {
         foreach ($data['time-entry'] as $timeEntryXML) {
             $array = (array)$timeEntryXML;
-            $hours += $array['hours'];
+
+            if (isset($array['hours'])) {
+                $hours += $array['hours'];
+            }
         }
 
         $hours = number_format($hours, 2);
@@ -146,12 +149,12 @@ function getTotalWorkedHoursThisMonth()
     return $hours;
 }
 
-function getTotalWorkedHoursThisMonthAllProjects()
+function getTotalWorkedHoursThisMonthAllProjects($bcUserId = 0)
 {
     $finalData = [];
     $projectsData = [];
 
-    $data = getWorkedHoursData();
+    $data = getWorkedHoursData($bcUserId);
 
     if (isset($data['time-entry'])) {
         foreach ($data['time-entry'] as $timeEntryXML) {

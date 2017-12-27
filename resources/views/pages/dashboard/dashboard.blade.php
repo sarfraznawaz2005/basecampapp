@@ -42,6 +42,7 @@
             <br><br>
 
             <div id="piechart"></div>
+            <div id="linechart"></div>
 
         </div>
 

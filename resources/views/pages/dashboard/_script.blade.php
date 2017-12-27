@@ -5,10 +5,9 @@
     <script>
         // Load google charts
         google.charts.load('current', {'packages': ['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawPieChart);
 
-        // Draw the chart and set the chart values
-        function drawChart() {
+        function drawPieChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Project', 'Hours'],
                 <?php
@@ -35,6 +34,39 @@
             // Display the chart inside the <div> element with id="piechart"
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
             chart.draw(data, options);
+        }
+
+        @if (user()->basecamp_api_user_id === '11816315')
+        google.charts.setOnLoadCallback(function () {
+            var data = google.visualization.arrayToDataTable([
+                ['Person', 'Hours', {role: 'style'}],
+                <?php
+                foreach ($allUsersHours as $user) {
+                    echo "['$user[name]', $user[hours], '$user[color]'],\n";
+                }
+                ?>
+            ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {
+                "legend": "none",
+                "title": "All Users Hours",
+                "vAxis": {title: "Hours"},
+                "hAxis": {title: "User", "minValue": 1, "maxValue": 5},
+                "width": "100%",
+                "height": 500
+            };
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.ColumnChart(document.getElementById('linechart'));
+            chart.draw(data, options);
+        });
+
+        @endif
+
+        function random_rgba() {
+            var o = Math.round, r = Math.random, s = 255;
+            return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
         }
     </script>
 
