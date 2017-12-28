@@ -14,20 +14,24 @@
             @endforeach
         </select>
 
-        @if (old('project_id'))
+        @if (isset($todo))
+            @push('scripts')
+                <script>
+                    $('#project option[value="{{$todo->project_id}}"]').attr("selected", "selected");
+                </script>
+            @endpush
+        @elseif (old('project_id'))
             @push('scripts')
                 <script>
                     $('#project option[value="{{old('project_id')}}"]').attr("selected", "selected");
                 </script>
             @endpush
-        @else
-            @if (isset($todo))
-                @push('scripts')
-                    <script>
-                        $('#project option[value="{{$todo->project_id}}"]').attr("selected", "selected");
-                    </script>
-                @endpush
-            @endif
+        @elseif (session('project_id'))
+            @push('scripts')
+                <script>
+                    $('#project option[value="{{session('project_id')}}"]').attr("selected", "selected");
+                </script>
+            @endpush
         @endif
 
         @if ($errors->has('project_id'))
@@ -57,20 +61,24 @@
             @endforeach
         </select>
 
-        @if (old('todolist_id'))
+        @if (isset($todo))
+            @push('scripts')
+                <script>
+                    $('#todolist option[value="{{$todo->todolist_id}}"]').attr("selected", "selected");
+                </script>
+            @endpush
+        @elseif (old('todolist_id'))
             @push('scripts')
                 <script>
                     $('#todolist option[value="{{old('todolist_id')}}"]').attr("selected", "selected");
                 </script>
             @endpush
-        @else
-            @if (isset($todo))
-                @push('scripts')
-                    <script>
-                        $('#todolist option[value="{{$todo->todolist_id}}"]').attr("selected", "selected");
-                    </script>
-                @endpush
-            @endif
+        @elseif (session('todolist_id'))
+            @push('scripts')
+                <script>
+                    $('#todolist option[value="{{session('todolist_id')}}"]').attr("selected", "selected");
+                </script>
+            @endpush
         @endif
 
         @if ($errors->has('todolist_id'))
@@ -99,20 +107,24 @@
             @endforeach
         </select>
 
-        @if (old('todo_id'))
+        @if (isset($todo))
+            @push('scripts')
+                <script>
+                    $('#todo option[value="{{$todo->todo_id}}"]').attr("selected", "selected");
+                </script>
+            @endpush
+        @elseif (old('todo_id'))
             @push('scripts')
                 <script>
                     $('#todo option[value="{{old('todo_id')}}"]').attr("selected", "selected");
                 </script>
             @endpush
-        @else
-            @if (isset($todo))
-                @push('scripts')
-                    <script>
-                        $('#todo option[value="{{$todo->todo_id}}"]').attr("selected", "selected");
-                    </script>
-                @endpush
-            @endif
+        @elseif (session('todo_id'))
+            @push('scripts')
+                <script>
+                    $('#todo option[value="{{session('todo_id')}}"]').attr("selected", "selected");
+                </script>
+            @endpush
         @endif
 
         @if ($errors->has('todo_id'))
