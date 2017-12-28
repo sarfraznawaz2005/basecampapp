@@ -93,6 +93,8 @@ class LoginController extends Controller
 
     protected function setup()
     {
+        $allUsersHours = [];
+
         // save original user info in session
         if (user()->isAdmin()) {
             session(['ouid' => user()->id]);
@@ -104,10 +106,26 @@ class LoginController extends Controller
 
             session(['all_users' => $users]);
 
-            foreach ($users as $userId => $user) {
-                Data::getUserMonthlyHours(true, $userId);
+            if (user()->isAdmin() && $users) {
+                foreach ($users as $userId => $user) {
+                    $nameArray = explode(' ', $user);
+                    $name = $nameArray[0] . ' ' . $nameArray[1][0];
+
+                    $hours = Data::getUserMonthlyHours(true, $userId);
+
+                    $allUsersHours[] = [
+                        'name' => $name,
+                        'hours' => $hours,
+                        'color' => substr(md5(rand()), 0, 6),
+                    ];
+
+                    // sort by max hours
+                    $allUsersHours = collect($allUsersHours)->sortByDesc('hours');
+                }
             }
         }
+
+        session(['all_users_hours' => $allUsersHours]);
 
         // refresh data on login - order is important
         if (Data::checkConnection(user()->basecamp_api_user_id)) {

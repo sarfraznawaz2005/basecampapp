@@ -40,24 +40,8 @@ class HomeController extends Controller
         $projects = collect($projects)->sortByDesc('hours');
 
         $allUsersHours = [];
-        if (user()->isAdmin() && session('all_users')) {
-            // ideally should be added and stored rather than being hard-coded
-            $users = session('all_users');
-
-            foreach ($users as $userId => $user) {
-                $nameArray = explode(' ', $user);
-                $name = $nameArray[0] . ' ' . $nameArray[1][0];
-
-                $hours = Data::getUserMonthlyHours(false, $userId);
-                $allUsersHours[] = [
-                    'name' => $name,
-                    'hours' => $hours,
-                    'color' => substr(md5(rand()), 0, 6),
-                ];
-
-                // sort by max hours
-                $allUsersHours = collect($allUsersHours)->sortByDesc('hours');
-            }
+        if (user()->isAdmin() && session('all_users_hours')) {
+            $allUsersHours = session('all_users_hours');
         }
 
         return view('pages.dashboard.dashboard',
@@ -68,6 +52,31 @@ class HomeController extends Controller
     public function refresh()
     {
         set_time_limit(0);
+
+        $allUsersHours = [];
+
+        // refresh all users hours
+        $users = session('all_users');
+
+        if (user()->isAdmin() && $users) {
+            foreach ($users as $userId => $user) {
+                $nameArray = explode(' ', $user);
+                $name = $nameArray[0] . ' ' . $nameArray[1][0];
+
+                $hours = Data::getUserMonthlyHours(true, $userId);
+
+                $allUsersHours[] = [
+                    'name' => $name,
+                    'hours' => $hours,
+                    'color' => substr(md5(rand()), 0, 6),
+                ];
+
+                // sort by max hours
+                $allUsersHours = collect($allUsersHours)->sortByDesc('hours');
+            }
+
+            session(['all_users_hours' => $allUsersHours]);
+        }
 
         // add all projects first
         $projects = getAllProjects();
