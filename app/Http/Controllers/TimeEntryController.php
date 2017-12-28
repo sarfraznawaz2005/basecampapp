@@ -121,6 +121,7 @@ class TimeEntryController extends Controller
 
         session(['project_id' => request()->project_id]);
         session(['todolist_id' => request()->todolist_id]);
+        session(['todo_id' => request()->todo_id]);
 
         flash('Todo Saved Succesfully', 'success');
 
