@@ -201,7 +201,7 @@
            placeholder="Description"
            required="required"
            name="description"
-           value="{{old('description') ? old('description') : (isset($todo) ? $todo->description : session('description') ? session('description') : '')}}"
+           value="{{old('description') ? old('description') : (isset($todo) ? $todo->description : (session('description') ? session('description') : ''))}}"
            type="text">
 
     @if ($errors->has('description'))

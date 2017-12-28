@@ -130,7 +130,7 @@ class TimeEntryController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->back();
+        return redirect()->to(route('timeentry'));
     }
 
     /**
