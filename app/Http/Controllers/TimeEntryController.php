@@ -32,10 +32,14 @@ class TimeEntryController extends Controller
 
         if (old('project_id')) {
             $todoLists = json_decode($this->todoLists(old('project_id')), true);
+        } elseif (session('project_id')) {
+            $todoLists = json_decode($this->todoLists(session('project_id')), true);
         }
 
         if (old('todolist_id')) {
             $todos = json_decode($this->todos(old('todolist_id')), true);
+        } elseif (session('todolist_id')) {
+            $todos = json_decode($this->todos(session('todolist_id')), true);
         }
 
         return $dataTable->render('pages.timeentry.timeentry',
@@ -115,13 +119,16 @@ class TimeEntryController extends Controller
             return redirect()->back()->withInput()->withErrors($todo);
         }
 
+        session(['project_id' => request()->project_id]);
+        session(['todolist_id' => request()->todolist_id]);
+
         flash('Todo Saved Succesfully', 'success');
 
         if ($isUpdate) {
             return redirect()->back();
         }
 
-        return redirect()->back()->withInput();
+        return redirect()->back();
     }
 
     /**
