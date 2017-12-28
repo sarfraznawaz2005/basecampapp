@@ -171,7 +171,7 @@
                required="required"
                name="time_end"
                type="time"
-               value="{{old('time_end') ? old('time_end') : (isset($todo) ? $todo->time_end : '')}}"
+               value="{{old('time_end') ? old('time_end') : (isset($todo) ? $todo->time_end : date('H:i'))}}"
                id="time_end">
 
         @if ($errors->has('time_end'))
