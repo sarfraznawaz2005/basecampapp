@@ -6,10 +6,10 @@
         sumColumn('#dataTableBuilder', 7)
     });
 
-    $('#project').change(function () {
+    $('.project_id').change(function () {
         var $this = $(this);
-        var $todoListDropdown = $('#todolist');
-        var $todoDropdown = $('#todo');
+        var $todoListDropdown = $this.closest('form').find('.todolist_id');
+        var $todoDropdown = $this.closest('form').find('.todo_id');
 
         if (this.value) {
 
@@ -42,9 +42,9 @@
         }
     });
 
-    $('#todolist').change(function () {
+    $('.todolist_id').change(function () {
         var $this = $(this);
-        var $todoDropdown = $('#todo');
+        var $todoDropdown = $this.closest('form').find('.todo_id');
 
         if (this.value) {
 

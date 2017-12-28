@@ -2,7 +2,7 @@
     <label for="project" class="control-label pull-left">Project</label>
 
     <div class="pull-right" style="width:80%">
-        <select class="form-control"
+        <select class="form-control project_id"
                 style="width:100%"
                 required="required"
                 id="project"
@@ -48,7 +48,7 @@
     <label for="todolist" class="control-label pull-left">Todolist</label>
 
     <div class="pull-right" style="width:80%">
-        <select class="form-control"
+        <select class="form-control todolist_id"
                 style="width:100%"
                 required="required"
                 id="todolist"
@@ -94,7 +94,7 @@
     <label for="todo" class="control-label pull-left">Todo</label>
 
     <div class="pull-right" style="width:80%">
-        <select class="form-control"
+        <select class="form-control todo_id"
                 style="width:100%"
                 required="required"
                 id="todo"
