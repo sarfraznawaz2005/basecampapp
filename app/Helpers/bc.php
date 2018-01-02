@@ -206,7 +206,7 @@ function getTodoName($id)
 {
     $data = getInfo("todo_items/$id");
 
-    return $data['name'];
+    return isset($data['content']) ? $data['content'] : '';
 }
 
 function getAllProjects()

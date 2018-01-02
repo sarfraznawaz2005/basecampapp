@@ -60,6 +60,7 @@ class HomeController extends Controller
             $users = session('all_users');
         } else {
             $users = Data::getAllUsers();
+
             session(['all_users' => $users]);
         }
 

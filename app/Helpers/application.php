@@ -239,3 +239,37 @@ function tdLabel($type, $text, $width = '60px')
 }
 
 
+/**
+ * Returns html table row
+ *
+ * Usage: tr($model->fieldName);
+ *
+ * @param $value
+ * @param string $title
+ * @param bool $strong
+ * @param string $default
+ * @return string
+ */
+function tr($value, $title = '', $strong = false, $default = '')
+{
+    if (!trim($value)) {
+        $value = $default;
+    }
+
+    $tr = '<tr>';
+
+    if (!$title) {
+        $title = ucwords(str_replace(['_', '-'], ['', ''], $value));
+    }
+
+    if ($strong) {
+        $tr .= '<td><strong>' . $title . '</strong></td>';
+    } else {
+        $tr .= '<td>' . $title . '</td>';
+    }
+
+    $tr .= '<td>' . $value . '</td>';
+    $tr .= '</tr>';
+
+    return $tr;
+}

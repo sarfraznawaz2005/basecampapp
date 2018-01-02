@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('timeentry', 'TimeEntryController@index')->name('timeentry');
     Route::post('timeentry', 'TimeEntryController@store');
     Route::get('timeentry/{todo}', 'TimeEntryController@edit')->name('timeentry.edit');
+    Route::get('timeentry_details/{todo}', 'TimeEntryController@show')->name('timeentry.view');
     Route::patch('timeentry/{todo}', 'TimeEntryController@update');
     Route::delete('delete_todo/{todo}', 'TimeEntryController@destroy')->name('delete_todo');
 

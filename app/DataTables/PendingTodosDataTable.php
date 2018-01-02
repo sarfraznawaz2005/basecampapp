@@ -34,6 +34,7 @@ class PendingTodosDataTable extends DataTable
             ->editColumn('action', function ($object) {
                 $action = '';
 
+                $action .= listingViewButton(route('timeentry.view', [$object]));
                 $action .= listingEditButton(route('timeentry.edit', [$object]));
                 $action .= listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
 
@@ -65,7 +66,7 @@ class PendingTodosDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->ajax('')
-            ->addAction(['width' => '80px'])
+            ->addAction(['width' => '120px'])
             ->parameters($this->getBuilderParameters());
     }
 

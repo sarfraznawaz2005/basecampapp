@@ -254,4 +254,17 @@ XMLDATA;
         return $posted;
     }
 
+
+    public function show(Todo $todo)
+    {
+        title('Todo Details');
+
+        $todolistName = getTodoListName($todo->todolist_id);
+        $todoName = getTodoName($todo->todo_id);
+
+        return view('pages.timeentry.details',
+            compact('todo', 'todolistName', 'todoName')
+        );
+    }
+
 }
