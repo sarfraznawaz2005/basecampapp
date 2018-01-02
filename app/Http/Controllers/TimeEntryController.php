@@ -177,7 +177,9 @@ class TimeEntryController extends Controller
                 return tdLabel('success', $text);
             })
             ->editColumn('action', function ($object) {
-                $action = listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
+
+                $action = listingViewButton(route('timeentry.view', [$object]));
+                $action .= listingDeleteButton(route('delete_todo', [$object]), 'Time Entry');
 
                 return tdCenter($action);
             })

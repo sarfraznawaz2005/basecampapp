@@ -3,6 +3,8 @@
 @section('title_area')
     <strong>Total Worked Hours This Month</strong>
     <span class="label label-success bigger">{{$totalHours}}</span>
+    <strong>of possible</strong>
+    <span class="label label-success bigger">{{getWorkingDaysCount(true) * 8}}</span>
 @endsection
 
 @section('content')

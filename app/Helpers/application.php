@@ -273,3 +273,34 @@ function tr($value, $title = '', $strong = false, $default = '')
 
     return $tr;
 }
+
+function getWorkingDaysCount($allMonth = false)
+{
+    $workdays = [];
+    $month = date('n'); // Month ID, 1 through to 12.
+    $year = date('Y'); // Year in 4 digit 2009 format.
+    $startDate = new DateTime(date('Y-m-1'));
+
+    if ($allMonth) {
+        $days = date('t');
+        $datetime2 = new DateTime(date("Y-m-$days"));
+        $interval = $startDate->diff($datetime2);
+        $day_count = $interval->days; // days from 1st of month to today
+    } else {
+        $day_count = date('d');
+    }
+
+    //loop through all days
+    for ($i = 1; $i <= $day_count; $i++) {
+        $date = $year . '/' . $month . '/' . $i; //format date
+        $get_name = date('l', strtotime($date)); //get week day
+        $day_name = substr($get_name, 0, 3); // Trim day name to 3 chars
+
+        //if not a weekend add day to array
+        if ($day_name != 'Sun' && $day_name != 'Sat') {
+            $workdays[] = $i;
+        }
+    }
+
+    return count($workdays);
+}

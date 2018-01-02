@@ -30,7 +30,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        title('Dashboard');
+        title('Dashboard - ' . date('d F Y')
+            . ' (Workday ' . getWorkingDaysCount()
+            . ' of '
+            . getWorkingDaysCount(true) . ')'
+        );
 
         // total monthly hours so far
         $totalHours = Data::getUserMonthlyHours();
