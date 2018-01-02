@@ -60,13 +60,7 @@ class HomeController extends Controller
         $allUsersHours = [];
 
         // refresh all users hours
-        if (session('all_users')) {
-            $users = session('all_users');
-        } else {
-            $users = Data::getAllUsers();
-
-            session(['all_users' => $users]);
-        }
+        $users = Data::getAllUsers();
 
         if (user()->isAdmin() && $users) {
             foreach ($users as $userId => $user) {
