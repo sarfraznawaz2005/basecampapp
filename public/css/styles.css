@@ -22,10 +22,14 @@ table.dataTable td {
 table.dataTable thead th {
     font-size: 90%;
     font-family: Tahoma, serif;
-    background: #ddd;
 }
 
 table.dataTable label.label {
     font-size: 105%;
     font-family: Tahoma, serif !important;
+}
+
+thead tr {
+    color: #333;
+    background-image: radial-gradient(#eee, #bbbbbb) !important;
 }

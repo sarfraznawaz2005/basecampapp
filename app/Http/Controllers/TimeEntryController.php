@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PendingTodosDataTable;
 use App\Models\Todo;
+use Exception;
 use Illuminate\Support\Str;
 use function parse_str;
 use function request;
@@ -189,8 +190,12 @@ class TimeEntryController extends Controller
 
     public function destroy(Todo $todo)
     {
-        if (!$todo->delete($todo)) {
-            return redirect()->back()->withErrors(['Could not delete!']);
+        try {
+            if (!$todo->delete($todo)) {
+                return redirect()->back()->withErrors(['Could not delete!']);
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors([$e->getMessage()]);
         }
 
         flash('Todo Deleted Succesfully', 'success');
