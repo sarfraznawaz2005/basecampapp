@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use anlutro\LaravelSettings\SettingStore;
 use App\DataTables\UsersDataTable;
 use App\Facades\Data;
 use App\Forms\SettingsForm;
@@ -22,7 +23,7 @@ class UserController extends Controller
         return view('pages.settings.settings', compact('form'));
     }
 
-    public function update(FormBuilder $formBuilder, User $user)
+    public function update(FormBuilder $formBuilder, User $user, SettingStore $settingStore)
     {
         $form = $formBuilder->create(SettingsForm::class);
 
@@ -49,6 +50,10 @@ class UserController extends Controller
         $user->save();
 
         Data::checkConnection($user->basecamp_api_user_id);
+
+        // save other settings
+        $settingStore->set('holidays', request()->holidays);
+        $settingStore->save();
 
         flash('Updated Successfully!', 'success');
         return redirect()->back();

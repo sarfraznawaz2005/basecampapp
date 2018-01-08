@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use anlutro\LaravelSettings\SettingStore;
 use App\Facades\Data;
 use App\Models\Project;
 use function collect;
@@ -26,14 +27,15 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param SettingStore $settingStore
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SettingStore $settingStore)
     {
         title('Dashboard - ' . date('d F Y')
             . ' (Workday ' . getWorkingDaysCount()
             . ' of '
-            . getWorkingDaysCount(true) . ')'
+            . (getWorkingDaysCount(true) - $settingStore->get('holidays')) . ')'
         );
 
         // projectly hours

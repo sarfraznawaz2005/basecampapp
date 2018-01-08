@@ -2,10 +2,18 @@
 
 namespace App\Forms;
 
+use anlutro\LaravelSettings\SettingStore;
 use Kris\LaravelFormBuilder\Form;
 
 class SettingsForm extends Form
 {
+    protected $setting = null;
+
+    public function __construct(SettingStore $settingStore)
+    {
+        $this->setting = $settingStore;
+    }
+
     public function buildForm()
     {
         $this
@@ -45,6 +53,22 @@ class SettingsForm extends Form
                 'rules' => 'required',
                 'label' => 'Basecamp User ID',
                 'value' => user()->basecamp_api_user_id
+            ])
+            ->add('other_hr', 'static', [
+                'tag' => 'hr',
+                'label' => false,
+                'attr' => ['class' => ''],
+                'value' => ''
+            ])
+            ->add('other_info', 'static', [
+                'tag' => 'div',
+                'label' => false,
+                'attr' => ['class' => 'badge'],
+                'value' => 'Other Settings'
+            ])
+            ->add('holidays', 'text', [
+                'label' => 'Public Holidays This Month',
+                'value' => $this->setting->get('holidays') ?: 0
             ])
             ->add('<i class="glyphicon glyphicon-ok"> Save</i>', 'submit', [
                 'attr' => ['class' => 'btn btn-success pull-right']
