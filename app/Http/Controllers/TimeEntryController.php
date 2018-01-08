@@ -249,6 +249,11 @@ XMLDATA;
                             $todo->save();
 
                             $posted = 'ok';
+                        } else {
+                            flash(
+                                'Todo "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.',
+                                'danger'
+                            );
                         }
 
                         // so that we do not send post request too fast to BC
