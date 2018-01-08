@@ -102,7 +102,12 @@ class LoginController extends Controller
 
         // refresh monthly hours for all users
         if (user()->isAdmin()) {
-            $users = Data::getAllUsers();
+
+            $excludedUserIds = [
+                12026432
+            ];
+
+            $users = Data::getAllUsers($excludedUserIds);
 
             session(['all_users' => $users]);
 

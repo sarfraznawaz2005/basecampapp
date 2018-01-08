@@ -76,7 +76,7 @@ class Data
         }
     }
 
-    public static function getAllUsers()
+    public static function getAllUsers(array $excludedUserIds = [])
     {
         $finalData = [];
 
@@ -92,6 +92,11 @@ class Data
                 }
 
                 if (isset($array['first-name'])) {
+
+                    if ($excludedUserIds && in_array($array['id'], $excludedUserIds)) {
+                        continue;
+                    }
+
                     $finalData[$array['id']] = ucfirst($array['first-name']) . ' ' . ucfirst($array['last-name']);
                 }
             }

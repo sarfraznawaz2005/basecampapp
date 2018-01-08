@@ -57,10 +57,14 @@ class HomeController extends Controller
     {
         set_time_limit(0);
 
+        $excludedUserIds = [
+            12026432
+        ];
+
         $allUsersHours = [];
 
         // refresh all users hours
-        $users = Data::getAllUsers();
+        $users = Data::getAllUsers($excludedUserIds);
 
         if (user()->isAdmin() && $users) {
             foreach ($users as $userId => $user) {
