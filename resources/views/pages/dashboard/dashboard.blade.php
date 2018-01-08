@@ -2,7 +2,7 @@
 
 @section('title_area')
     <strong>Total Worked Hours This Month</strong>
-    <span class="label label-success bigger">{{$totalHours}}</span>
+    <span class="label label-success bigger">{{session('month_hours')}}</span>
     <strong>of possible</strong>
     <span class="label label-success bigger">{{getWorkingDaysCount(true) * 8}}</span>
 @endsection

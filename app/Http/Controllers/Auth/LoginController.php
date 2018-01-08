@@ -135,8 +135,10 @@ class LoginController extends Controller
         // refresh data on login - order is important
         if (Data::checkConnection(user()->basecamp_api_user_id)) {
             Data::addUserProjects();
-            Data::getUserMonthlyHours(true);
+            $monthHours = Data::getUserMonthlyHours(true);
             Data::getUserProjectlyHours(true);
+
+            session(['month_hours' => $monthHours]);
         }
     }
 

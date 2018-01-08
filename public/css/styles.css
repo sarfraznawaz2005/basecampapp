@@ -33,3 +33,7 @@ thead tr {
     color: #333;
     background-image: radial-gradient(#eee, #bbbbbb) !important;
 }
+
+#app-navbar-collapse > ul.nav.navbar-nav.navbar-right svg {
+    margin-top: 10px;
+}

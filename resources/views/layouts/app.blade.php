@@ -69,6 +69,13 @@
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                     @else
+
+                        <li>
+                            <span
+                                    id="donutChart"
+                                    data-peity='{ "fill": ["violet", "#eeeeee"], "innerRadius": 10, "radius": 15 }'>{{round(session('month_hours'))}}/{{getWorkingDaysCount() * 8}}</span>
+                        </li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
@@ -157,6 +164,7 @@
 '/js/plugins/datatables/sum.js',
 '/js/plugins/select2/select2.full.min.js',
 '/js/plugins/sweetalert/dist/sweetalert.min.js',
+'/js/plugins/jquery.peity.min.js',
 '/js/custom.js',
 ],
 '/storage/cache/js/')

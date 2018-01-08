@@ -36,9 +36,6 @@ class HomeController extends Controller
             . getWorkingDaysCount(true) . ')'
         );
 
-        // total monthly hours so far
-        $totalHours = Data::getUserMonthlyHours();
-
         // projectly hours
         $projects = Data::getUserProjectlyHours();
         $projects = collect($projects)->sortByDesc('hours');
@@ -49,7 +46,7 @@ class HomeController extends Controller
         }
 
         return view('pages.dashboard.dashboard',
-            compact('totalHours', 'projects', 'allUsersHours')
+            compact('projects', 'allUsersHours')
         );
     }
 
@@ -103,7 +100,8 @@ class HomeController extends Controller
             $projectInstance->save();
         }
 
-        Data::getUserMonthlyHours(true);
+        $monthHours = Data::getUserMonthlyHours(true);
+        session(['month_hours' => $monthHours]);
 
         Data::getUserProjectlyHours(true);
 

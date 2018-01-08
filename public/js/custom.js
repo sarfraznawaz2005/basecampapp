@@ -66,6 +66,9 @@ $(function () {
         });
     });
 
+    // for donut chart
+    $("#donutChart").peity("donut");
+
 });
 
 // confirm delete
