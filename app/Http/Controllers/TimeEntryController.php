@@ -258,6 +258,10 @@ XMLDATA;
             }
         }
 
+        if ($posted === 'ok') {
+            flash('Todos Posted Succesfully To Basecamp.', 'success');
+        }
+
         return $posted;
     }
 
