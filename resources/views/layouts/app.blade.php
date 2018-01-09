@@ -70,9 +70,15 @@
                         <li><a href="{{ route('register') }}">Register</a></li>
                     @else
 
-                        <li title="{{round(session('month_hours')) + Setting::get('daily_hours')}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}">
+                        <li title="Current: {{round(session('month_hours') + user()->pendingTodosHoursToday())}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}">
                             <span
-                                    id="donutChart"
+                                    class="donutChart"
+                                    data-peity='{ "fill": ["{{(round(session('month_hours') + user()->pendingTodosHoursToday())) < (getWorkingDaysCount() * Setting::get('daily_hours')) ? 'violet' : 'blue'}}", "#eeeeee"], "innerRadius": 10, "radius": 15 }'>{{(round(session('month_hours')) + user()->pendingTodosHoursToday())}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}</span>
+                        </li>
+
+                        <li title="Projected: {{round(session('month_hours')) + Setting::get('daily_hours')}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}">
+                            <span
+                                    class="donutChart"
                                     data-peity='{ "fill": ["{{(round(session('month_hours')) + Setting::get('daily_hours')) < (getWorkingDaysCount() * Setting::get('daily_hours')) ? 'violet' : 'blue'}}", "#eeeeee"], "innerRadius": 10, "radius": 15 }'>{{(round(session('month_hours')) + Setting::get('daily_hours'))}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}</span>
                         </li>
 

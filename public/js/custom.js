@@ -67,7 +67,7 @@ $(function () {
     });
 
     // for donut chart
-    $("#donutChart").peity("donut");
+    $(".donutChart").peity("donut");
 
 });
 
