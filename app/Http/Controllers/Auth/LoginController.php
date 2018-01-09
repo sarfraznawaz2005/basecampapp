@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use anlutro\LaravelSettings\SettingStore;
 use App\Facades\Data;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
@@ -59,9 +60,10 @@ class LoginController extends Controller
      * Handle a login request to the application.
      *
      * @param Request $request
+     * @param SettingStore $settingStore
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(Request $request, SettingStore $settingStore)
     {
         set_time_limit(0);
 
@@ -78,7 +80,7 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
 
-            $this->setup();
+            $this->setup($settingStore);
 
             return $this->sendLoginResponse($request);
         }
@@ -91,9 +93,15 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    protected function setup()
+    protected function setup($settingStore)
     {
         $allUsersHours = [];
+
+        // set daily hours required
+        if (! $settingStore->get('daily_hours')) {
+            $settingStore->set('daily_hours', request()->daily_hours);
+            $settingStore->save();
+        }
 
         // save original user info in session
         if (user()->isAdmin()) {

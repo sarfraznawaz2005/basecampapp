@@ -66,6 +66,10 @@ class SettingsForm extends Form
                 'attr' => ['class' => 'badge'],
                 'value' => 'Other Settings'
             ])
+            ->add('daily_hours', 'text', [
+                'label' => 'Daily Required Hours',
+                'value' => $this->setting->get('daily_hours') ?: 8
+            ])
             ->add('holidays', 'text', [
                 'label' => 'Public Holidays This Month',
                 'value' => $this->setting->get('holidays') ?: 0

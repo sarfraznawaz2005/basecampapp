@@ -53,6 +53,7 @@ class UserController extends Controller
 
         // save other settings
         $settingStore->set('holidays', request()->holidays);
+        $settingStore->set('daily_hours', request()->daily_hours);
         $settingStore->save();
 
         flash('Updated Successfully!', 'success');

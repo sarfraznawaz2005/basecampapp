@@ -70,10 +70,10 @@
                         <li><a href="{{ route('register') }}">Register</a></li>
                     @else
 
-                        <li title="{{round(session('month_hours'))}}/{{getWorkingDaysCount() * 8}}">
+                        <li title="{{round(session('month_hours')) + Setting::get('daily_hours')}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}">
                             <span
                                     id="donutChart"
-                                    data-peity='{ "fill": ["violet", "#eeeeee"], "innerRadius": 10, "radius": 15 }'>{{round(session('month_hours'))}}/{{getWorkingDaysCount() * 8}}</span>
+                                    data-peity='{ "fill": ["{{(round(session('month_hours')) + Setting::get('daily_hours')) < (getWorkingDaysCount() * Setting::get('daily_hours')) ? 'violet' : 'blue'}}", "#eeeeee"], "innerRadius": 10, "radius": 15 }'>{{(round(session('month_hours')) + Setting::get('daily_hours'))}}/{{getWorkingDaysCount() * Setting::get('daily_hours')}}</span>
                         </li>
 
                         <li class="dropdown">
