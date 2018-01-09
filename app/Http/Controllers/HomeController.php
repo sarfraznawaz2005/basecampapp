@@ -47,8 +47,15 @@ class HomeController extends Controller
             $allUsersHours = session('all_users_hours');
         }
 
+        $monthHours = session('month_hours');
+
+        if (!session('month_hours')) {
+            $monthHours = Data::getUserMonthlyHours();
+            session(['month_hours' => $monthHours]);
+        }
+
         return view('pages.dashboard.dashboard',
-            compact('projects', 'allUsersHours')
+            compact('projects', 'allUsersHours', 'monthHours')
         );
     }
 
