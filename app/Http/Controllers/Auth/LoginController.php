@@ -98,8 +98,8 @@ class LoginController extends Controller
         $allUsersHours = [];
 
         // set daily hours required
-        if (! $settingStore->get('daily_hours')) {
-            $settingStore->set('daily_hours', request()->daily_hours);
+        if (!$settingStore->get('daily_hours')) {
+            $settingStore->set('daily_hours', request()->daily_hours ?: 0);
             $settingStore->save();
         }
 
