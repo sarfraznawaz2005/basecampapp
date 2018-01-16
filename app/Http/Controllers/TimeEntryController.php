@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PendingTodosDataTable;
+use App\Facades\Data;
 use App\Models\Todo;
 use Exception;
 use Illuminate\Support\Str;
@@ -265,6 +266,9 @@ XMLDATA;
 
         if ($posted === 'ok') {
             flash('Todos Posted Succesfully To Basecamp.', 'success');
+
+            $monthHours = Data::getUserMonthlyHours(true);
+            session(['month_hours' => $monthHours]);
         }
 
         return $posted;
