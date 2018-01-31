@@ -29,6 +29,11 @@ class TimeEntryController extends Controller
         $todoLists = [];
         $todos = [];
 
+        // refresh hours if session lost
+        if (! session('all_users_hours')) {
+            HomeController::refreshData();
+        }
+
         $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
         asort($projects);
 

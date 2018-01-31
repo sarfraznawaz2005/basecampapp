@@ -35,12 +35,17 @@ class HomeController extends Controller
         title('Dashboard - ' . date('d F Y')
             . ' (Workday ' . getWorkingDaysCount()
             . ' of '
-            . (getWorkingDaysCount(true) - $settingStore->get('holidays')) . ')'
+            . (getWorkingDaysCount() - $settingStore->get('holidays')) . ')'
         );
 
         // projectly hours
         $projects = Data::getUserProjectlyHours();
         $projects = collect($projects)->sortByDesc('hours');
+
+        // refresh hours if session lost
+        if (! session('all_users_hours')) {
+            $this->refreshData();
+        }
 
         $allUsersHours = [];
         if (user()->isAdmin() && session('all_users_hours')) {
@@ -60,6 +65,15 @@ class HomeController extends Controller
     }
 
     public function refresh()
+    {
+        $this->refreshData();
+
+        flash('Data Refreshed Successfully!', 'success');
+
+        return redirect()->back();
+    }
+
+    public static function refreshData()
     {
         set_time_limit(0);
 
@@ -113,9 +127,5 @@ class HomeController extends Controller
         session(['month_hours' => $monthHours]);
 
         Data::getUserProjectlyHours(true);
-
-        flash('Data Refreshed Successfully!', 'success');
-
-        return redirect()->back();
     }
 }

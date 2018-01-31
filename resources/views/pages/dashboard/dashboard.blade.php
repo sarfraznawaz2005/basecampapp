@@ -4,7 +4,7 @@
     <strong>Total Worked Hours This Month</strong>
     <span class="label label-success bigger">{{$monthHours}}</span>
     <strong>of</strong>
-    <span class="label label-success bigger">{{(getWorkingDaysCount(true) - Setting::get('holidays')) * Setting::get('daily_hours')}}</span>
+    <span class="label label-success bigger">{{(getWorkingDaysCount() - Setting::get('holidays')) * Setting::get('daily_hours')}}</span>
 @endsection
 
 @section('content')
