@@ -97,6 +97,7 @@
 
         $('.dataTable .chk_post').each(function () {
             this.checked = checked;
+            $(this).closest('tr').toggleClass('warning');
         });
     });
 
