@@ -35,7 +35,7 @@ class HomeController extends Controller
         title('Dashboard - ' . date('d F Y')
             . ' (Workday ' . getWorkingDaysCount()
             . ' of '
-            . (getWorkingDaysCount() - $settingStore->get('holidays')) . ')'
+            . (getWorkingDaysCount()) . ')'
         );
 
         // projectly hours
