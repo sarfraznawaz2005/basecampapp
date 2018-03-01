@@ -52,7 +52,7 @@ class UserController extends Controller
         Data::checkConnection($user->basecamp_api_user_id);
 
         // save other settings
-        $settingStore->set('holidays', request()->holidays);
+        //$settingStore->set('holidays', request()->holidays);
         $settingStore->set('daily_hours', request()->daily_hours);
         $settingStore->save();
 

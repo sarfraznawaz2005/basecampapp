@@ -70,10 +70,12 @@ class SettingsForm extends Form
                 'label' => 'Daily Required Hours',
                 'value' => $this->setting->get('daily_hours') ?: 8
             ])
+            /*
             ->add('holidays', 'text', [
                 'label' => 'Public Holidays This Month',
                 'value' => $this->setting->get('holidays') ?: 0
             ])
+            */
             ->add('<i class="glyphicon glyphicon-ok"> Save</i>', 'submit', [
                 'attr' => ['class' => 'btn btn-success pull-right']
             ]);
