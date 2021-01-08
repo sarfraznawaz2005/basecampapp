@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('title_area')
+    <a data-toggle="modal" href="#modal-entry" class="btn btn-success btn-sm">
+        <i class="glyphicon glyphicon-plus-sign"></i> Add New Entry
+    </a>
+@endsection
+
 @section('content')
 
     <a href="{{route('timeentry')}}" class="btn btn-primary btn-sm">Back</a>

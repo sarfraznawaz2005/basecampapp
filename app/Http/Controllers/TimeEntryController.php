@@ -286,6 +286,11 @@ XMLDATA;
 
         $todolistName = getTodoListName($todo->todolist_id);
         $todoName = getTodoName($todo->todo_id);
+        
+        session(['project_id' => $todo->project_id]);
+        session(['todolist_id' => $todo->todolist_id]);
+        session(['todo_id' => $todo->todo_id]);
+        session(['description' => $todo->description]);        
 
         return view('pages.timeentry.details',
             compact('todo', 'todolistName', 'todoName')
