@@ -290,10 +290,16 @@ XMLDATA;
         session(['project_id' => $todo->project_id]);
         session(['todolist_id' => $todo->todolist_id]);
         session(['todo_id' => $todo->todo_id]);
-        session(['description' => $todo->description]);        
+        session(['description' => $todo->description]);
+
+        $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
+        asort($projects);
+
+        $todoLists = json_decode($this->todoLists($todo->project_id), true);
+        $todos = json_decode($this->todos($todo->todolist_id), true);		
 
         return view('pages.timeentry.details',
-            compact('todo', 'todolistName', 'todoName')
+            compact('todo', 'todolistName', 'todoName', 'projects', 'todoLists', 'todos')
         );
     }
 
