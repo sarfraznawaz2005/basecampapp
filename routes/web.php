@@ -24,7 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('timeentry_details/{todo}', 'TimeEntryController@show')->name('timeentry.view');
     Route::patch('timeentry/{todo}', 'TimeEntryController@update');
     Route::delete('delete_todo/{todo}', 'TimeEntryController@destroy')->name('delete_todo');
-
+	Route::get('replicate', 'TimeEntryController@replicate')->name('replicate');
+	
     // ajax
     Route::get('todolists/{projectId}', 'TimeEntryController@todoLists');
     Route::get('todos/{todolistId}', 'TimeEntryController@todos');

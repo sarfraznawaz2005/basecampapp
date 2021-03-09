@@ -13,6 +13,7 @@ use function set_time_limit;
 use function sleep;
 use function str_slug;
 use Yajra\Datatables\Facades\Datatables;
+use Carbon\Carbon;
 
 class TimeEntryController extends Controller
 {
@@ -302,5 +303,22 @@ XMLDATA;
             compact('todo', 'todolistName', 'todoName', 'projects', 'todoLists', 'todos')
         );
     }
+	
+    public function replicate()
+    {
+        $pendingTodos = user()->pendingTodos;
+		
+		foreach ($pendingTodos as $pendingTodo) {
+			$newTodo = $pendingTodo->replicate();
+			$newTodo->dated = date('Y-m-d');
+			$newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->addMinutes(rand(1, 5))));
+			$newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->addMinutes(rand(1, 5))));
+			$newTodo->save();
+		}
+		
+        flash('Replicated Succesfully', 'success');
+
+        return redirect()->back();
+    }	
 
 }
