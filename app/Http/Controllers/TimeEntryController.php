@@ -306,21 +306,23 @@ XMLDATA;
 	
     public function replicate()
     {
+		$range = rand(1, 5);
+		$arr = ['addMinutes', 'subMinute'];
+		shuffle($arr);
+			    
         $pendingTodos = user()->pendingTodos;
 		
-		foreach ($pendingTodos as $pendingTodo) {
-			$range = rand(1, 10);
-			$arr = ['addMinutes', 'subMinute'];
-			shuffle($arr);
-			
+		foreach ($pendingTodos as $pendingTodo) {			
 			$newTodo = $pendingTodo->replicate();
 			$newTodo->dated = date('Y-m-d');
-			$newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->$arr[0]($range)));
-			$newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->$arr[0]($range)));
+			$newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->{$arr[0]}($range)));
+			$newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->{$arr[0]}($range)));
 			$newTodo->save();
 		}
 		
-        flash('Replicated Succesfully', 'success');
+		if ($pendingTodos) {
+			flash('Replicated Succesfully', 'success');
+		}        
 
         return redirect()->back();
     }	
