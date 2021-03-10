@@ -309,10 +309,14 @@ XMLDATA;
         $pendingTodos = user()->pendingTodos;
 		
 		foreach ($pendingTodos as $pendingTodo) {
+			$range = rand(1, 10);
+			$arr = ['addMinutes', 'subMinute'];
+			shuffle($arr);
+			
 			$newTodo = $pendingTodo->replicate();
 			$newTodo->dated = date('Y-m-d');
-			$newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->addMinutes(rand(1, 5))));
-			$newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->addMinutes(rand(1, 5))));
+			$newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->$arr[0]($range)));
+			$newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->$arr[0]($range)));
 			$newTodo->save();
 		}
 		
