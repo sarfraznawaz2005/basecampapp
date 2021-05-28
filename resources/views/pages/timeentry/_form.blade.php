@@ -147,7 +147,7 @@
                name="dated"
                type="date"
                id="date"
-               value="{{old('dated') ? old('dated') : Route::currentRouteName() === 'timeentry.edit' ? $todo->dated : date('Y-m-d')}}">
+               value="{{old('dated') ?? Route::currentRouteName() === 'timeentry.edit' ? $todo->dated : date('Y-m-d')}}">
 
         @if ($errors->has('dated'))
             <span class="help-block">
@@ -164,7 +164,7 @@
                required="required"
                name="time_start"
                type="time"
-               value="{{old('time_start') ? old('time_start') : Route::currentRouteName() === 'timeentry.edit'? $todo->time_start : date('H:i')}}"
+               value="{{old('time_start') ?? Route::currentRouteName() === 'timeentry.edit'? $todo->time_start : date('H:i')}}"
                id="time_start">
 
         @if ($errors->has('time_start'))
@@ -183,7 +183,7 @@
                required="required"
                name="time_end"
                type="time"
-               value="{{old('time_end') ? old('time_end') : Route::currentRouteName() === 'timeentry.edit' ? $todo->time_end : date('H:i')}}"
+               value="{{old('time_end') ?? Route::currentRouteName() === 'timeentry.edit' ? $todo->time_end : date('H:i')}}"
                id="time_end">
 
         @if ($errors->has('time_end'))
