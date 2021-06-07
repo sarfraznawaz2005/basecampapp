@@ -130,4 +130,24 @@
 
     });
 
+    $('.dataTables_info').before('<span id="selected_total" class="label label-success" style="font-size:12px; padding-top:5px;">Selected Total: <span>0.00</span></span>');
+
+    $('.dataTables_info').hide();
+
+    $(document).on('change','.pending-table .chk_post', function (event) {
+        var total = 0.00;
+
+        $('.chk_post:checked').each(function(){
+            var amount = $(this).closest('tr').find('td:nth(6)').text();
+
+            if (!isNaN(amount)) {
+                total += Number(amount);
+            }
+        });
+
+        total = Number(total).toFixed(2);
+
+        $('#selected_total span').text(total);
+    });
+
 </script>

@@ -6,7 +6,7 @@
         <i class="glyphicon glyphicon-grain"></i> Replicate
     </a>
 	@endif
-	
+
     <a data-toggle="modal" href="#modal-entry" class="btn btn-success btn-sm">
         <i class="glyphicon glyphicon-plus-sign"></i> Add New Entry
     </a>
@@ -54,10 +54,13 @@
                 @widget('App.Widgets.PendingTodosWidget')
             </form>
 
+            <div id="selected_total" style="display: none;"><div class="label label-warning" style="font-size: 13px; font-weight: bold; margin-bottom: 5px;"></div></div>
+
             <button class="btn btn-primary" id="btnPost">
                 <i class="glyphicon glyphicon-upload"></i> Post Selected
             </button>
         </div>
+
         <div class="tab-pane fade" id="posted">
             <br>
             @widget('App.Widgets.PostedTodosWidget')
