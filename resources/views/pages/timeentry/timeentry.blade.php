@@ -2,9 +2,16 @@
 
 @section('title_area')
 	@if (user() && user()->isAdmin())
-    <a href="{{route('replicate')}}" class="btn btn-primary btn-sm m-r-30" style="margin-right:10px;">
-        <i class="glyphicon glyphicon-grain"></i> Replicate
-    </a>
+    <form method="POST" action="{{route('replicate')}}" id="frmReplicate" style="display:inline;">
+        {{ csrf_field() }}
+
+        <input type="hidden" id="replicate_message" name="replicate_message" value="" />
+
+        <button type="submit"
+        class="btn btn-primary btn-sm m-r-30" style="margin-right:10px;">
+            <i class="glyphicon glyphicon-grain"></i> Replicate
+        </button>
+    </form>
 	@endif
 
     <a data-toggle="modal" href="#modal-entry" class="btn btn-success btn-sm">

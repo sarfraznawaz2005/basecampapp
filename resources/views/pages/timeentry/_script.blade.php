@@ -150,4 +150,15 @@
         $('#selected_total span').text(total);
     });
 
+    $('#frmReplicate').submit(function(){
+        if (confirm("Are you sure to replicate ?")) {
+            var value = prompt("(Optional: Replicated stories description ? Leave empty to auto-retrive.)");
+            $('#replicate_message').val(value);
+
+            return true;
+        }
+
+        return false;
+    });
+
 </script>
