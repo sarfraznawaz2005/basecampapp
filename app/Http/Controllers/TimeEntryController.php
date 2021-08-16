@@ -287,7 +287,7 @@ XMLDATA;
 
 	public function replicate() {
 
-		$description = \request()->replicate_message ?? '';
+		$description = \request()->replicate_message ?: '';
 		$range = rand(1, 5);
 		$arr = ['addMinutes', 'subMinute'];
 		shuffle($arr);
@@ -299,7 +299,7 @@ XMLDATA;
 			$newTodo->dated = date('Y-m-d');
 			$newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->{$arr[0]}($range)));
 			$newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->{$arr[0]}($range)));
-			$newTodo->description = $description ?? $pendingTodo->description;
+			$newTodo->description = $description ?: $pendingTodo->description;
 			$newTodo->save();
 		}
 

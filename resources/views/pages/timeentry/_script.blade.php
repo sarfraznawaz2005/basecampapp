@@ -152,7 +152,7 @@
 
     $('#frmReplicate').submit(function(){
         if (confirm("Are you sure to replicate ?")) {
-            var value = prompt("(Optional: Replicated stories description ? Leave empty to auto-retrive.)");
+            var value = prompt("(Optional: Replicated stories description ? Click 'Cancel' to auto-retrive.)");
             $('#replicate_message').val(value);
 
             return true;
