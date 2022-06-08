@@ -129,6 +129,38 @@
         });
 
     });
+	
+	
+	$('#btnDelete').click(function () {
+        var $this = $(this);
+        var btnText = $(this).html();
+        var checkedCheckboxCount = $('.dataTable .chk_post:checked').length;
+        var data = $('#pendingTodosForm').serialize();
+
+        if (!checkedCheckboxCount) {
+            showAlert('Nothing Selected!', 'warning');
+            return false;
+        }
+
+		if (confirm("Are you sure to delete ?")) {
+			$this.attr('disabled', true);
+			$this.text('Working, please wait...');
+
+			// send
+			$.post('/delete_todos', {data: data}, function (response) {
+				if (response === 'ok') {
+					window.location.reload()
+				}
+				else {
+					showAlert('Unable to delete :(', 'error');
+				}
+
+				$this.attr('disabled', false);
+				$this.html(btnText);
+			});
+		}
+
+    });	
 
     $('.dataTables_info').before('<span id="selected_total" class="label label-success" style="font-size:12px; padding-top:5px;">Selected Total: <span>0.00</span></span>');
 

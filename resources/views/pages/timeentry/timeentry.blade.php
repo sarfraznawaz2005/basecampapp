@@ -66,6 +66,10 @@
             <button class="btn btn-primary" id="btnPost">
                 <i class="glyphicon glyphicon-upload"></i> Post Selected
             </button>
+			
+            <button class="btn btn-danger" id="btnDelete">
+                <i class="glyphicon glyphicon-trash"></i> Delete Selected
+            </button>			
         </div>
 
         <div class="tab-pane fade" id="posted">

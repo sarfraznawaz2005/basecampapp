@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('todolists/{projectId}', 'TimeEntryController@todoLists');
 	Route::get('todos/{todolistId}', 'TimeEntryController@todos');
 	Route::post('post_todos', 'TimeEntryController@postTodos');
+	Route::post('delete_todos', 'TimeEntryController@deleteTodos');
 
 	// datatables
 	Route::get('datatable_posted_todos', 'TimeEntryController@postedTodos')->name('datatable_posted_todos');

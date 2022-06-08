@@ -121,7 +121,7 @@ class TimeEntryController extends Controller {
 		session(['todo_id' => request()->todo_id]);
 		session(['description' => request()->description]);
 
-		flash('Todo Saved Succesfully', 'success');
+		flash('Todo Saved Successfully', 'success');
 
 		if ($isUpdate) {
 			return redirect()->back();
@@ -190,7 +190,7 @@ class TimeEntryController extends Controller {
 			return redirect()->back()->withErrors([$e->getMessage()]);
 		}
 
-		flash('Todo Deleted Succesfully', 'success');
+		flash('Todo Deleted Successfully', 'success');
 
 		return redirect()->back();
 	}
@@ -254,13 +254,34 @@ XMLDATA;
 		}
 
 		if ($posted === 'ok') {
-			flash('Todos Posted Succesfully To Basecamp.', 'success');
+			flash('Todos Posted Successfully To Basecamp.', 'success');
 
 			$monthHours = Data::getUserMonthlyHours(true);
 			session(['month_hours' => $monthHours]);
 		}
 
 		return $posted;
+	}
+	
+	
+	public function deleteTodos(Todo $todo) {
+		if (trim(request()->data)) {
+			$todoIDs = [];
+
+			parse_str(request()->data, $todoIDs);
+
+			if (isset($todoIDs['selected_todos']) && $todoIDs['selected_todos']) {
+				foreach ($todoIDs['selected_todos'] as $todoID) {
+
+					$todo = $todo->find($todoID);
+					$todo->delete();
+				}
+				
+				flash('Todos Deleted Successfully!', 'success');
+			}
+		}
+
+		return 'ok';
 	}
 
 	public function show(Todo $todo) {
@@ -304,7 +325,7 @@ XMLDATA;
 		}
 
 		if ($pendingTodos) {
-			flash('Replicated Succesfully', 'success');
+			flash('Replicated Successfully', 'success');
 		}
 
 		return redirect()->back();
