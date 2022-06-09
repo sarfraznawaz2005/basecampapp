@@ -231,9 +231,10 @@ XMLDATA;
 
 						// send to basecamp
 						$responseHeader = postInfo($action, $xmlData);
+						//echo $responseHeader;exit;
 
 						// check to see if it was posted successfully to BC
-						if (Str::contains($responseHeader, 'Created')) {
+						if (Str::contains($responseHeader, 'Created') || Str::contains($responseHeader, '201')) {
 							// update to do status
 							$todo->status = 'posted';
 							$todo->save();
