@@ -111,23 +111,34 @@
             showAlert('Nothing Selected!', 'warning');
             return false;
         }
+        
+		swal({
+			title: "Are you sure?",
+			text: "Todos will be posted!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes, post!",
+			closeOnConfirm: false
+		}, function () {
+			swal.disableButtons();
 
-        $this.attr('disabled', true);
-        $this.text('Working, please wait...');
+			$this.attr('disabled', true);
+			$this.text('Working, please wait...');
 
-        // send
-        $.post('/post_todos', {data: data}, function (response) {
-            if (response === 'ok') {
-                window.location.reload()
-            }
-            else {
-                showAlert('Unable to post :(', 'error');
-            }
+			// send
+			$.post('/post_todos', {data: data}, function (response) {
+				if (response === 'ok') {
+					window.location.reload()
+				}
+				else {
+					showAlert('Unable to post :(', 'error');
+				}
 
-            $this.attr('disabled', false);
-            $this.html(btnText);
-        });
-
+				$this.attr('disabled', false);
+				$this.html(btnText);
+			});
+		});
+		
     });
 	
 	
@@ -142,7 +153,18 @@
             return false;
         }
 
-		if (confirm("Are you sure to delete ?")) {
+
+		swal({
+			title: "Are you sure?",
+			text: "Todos will be deleted!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete!",
+			closeOnConfirm: false
+		}, function () {
+			swal.disableButtons();
+
 			$this.attr('disabled', true);
 			$this.text('Working, please wait...');
 
@@ -158,7 +180,7 @@
 				$this.attr('disabled', false);
 				$this.html(btnText);
 			});
-		}
+		});
 
     });	
 
