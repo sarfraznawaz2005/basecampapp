@@ -85,7 +85,7 @@ class HomeController extends Controller
 
         // refresh all users hours
         $users = Data::getAllUsers($excludedUserIds);
-
+        
         if (user()->isAdmin() && $users) {
             foreach ($users as $userId => $user) {
                 $nameArray = explode(' ', $user);
@@ -108,6 +108,7 @@ class HomeController extends Controller
 
         // add all projects first
         $projects = getAllProjects();
+        //dd($projects);
 
         foreach ($projects as $projectId => $name) {
 

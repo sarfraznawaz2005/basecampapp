@@ -31,6 +31,7 @@ function getInfo($action, $queryString = '')
     curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($session, CURLOPT_HTTPGET, 1);
     curl_setopt($session, CURLOPT_HEADER, false);
+    curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
     curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
     curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
@@ -64,6 +65,7 @@ function postInfo($action, $xmlData)
     $session = curl_init();
     curl_setopt($session, CURLOPT_URL, $url);
     curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
     curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
     curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
